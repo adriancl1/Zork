@@ -6,5 +6,8 @@ class Room
 public:
 	char name[15];
 	char description[500];
+public:
+	Room();
+	~Room();
 };
 #endif

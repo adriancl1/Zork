@@ -7,10 +7,11 @@
 class World
 {
 public:
-	Room* rooms =new Room[11];
-	Exit* exits = new Exit[20];
-	Player Kevin;
-
-	void CreateWorld();
+	Room* rooms =nullptr;
+	Exit* exits = nullptr;
+	Player* kevin;
+public:
+	World();
+	~World();
 };
 #endif
