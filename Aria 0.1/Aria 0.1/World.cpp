@@ -1,10 +1,12 @@
 #include <stdlib.h>
 #include <string.h>
-#define _CRT_SECURE_NO_WARNINGS
-#include "Room.h"
-#include "Player.h"
-#include "Exit.h"
+
 #include "World.h"
+
+
+#define NUM_ROOMS 11
+#define NUM_EXITS 22
+#define _CRT_SECURE_NO_WARNINGS
 
 World::World(){
 	//Rooms ----
@@ -38,111 +40,133 @@ World::World(){
 	exits[0].open = false;
 	exits[0].source = &rooms[0];
 	exits[0].destination = &rooms[1];
+	exits[0].direction = north;
 	strcpy_s(exits[0].name, "House hall");
 	strcpy_s(exits[0].description, "North there's the house door.");
 	exits[1].open = true;
 	exits[1].source = &rooms[0];
 	exits[1].destination = &rooms[9];
+	exits[1].direction = west;
 	strcpy_s(exits[1].name, "Ruins");
 	strcpy_s(exits[1].description, "There's a path that seems to lead to some ruins to the west.");
 	exits[2].open = true;
 	exits[2].source = &rooms[0];
 	exits[2].destination = &rooms[6];
+	exits[2].direction = east;
 	strcpy_s(exits[2].name, "Garden");
 	strcpy_s(exits[2].description, "East through a wooden path is the garden.");
 	exits[3].open = true;
 	exits[3].source = &rooms[1];
 	exits[3].destination = &rooms[2];
+	exits[3].direction = west;
 	strcpy_s(exits[3].name, "Kitchen");
 	strcpy_s(exits[3].description, "The kitchen is west from here.");
 	exits[4].open = true;
 	exits[4].source = &rooms[1];
 	exits[4].destination = &rooms[3];
+	exits[4].direction = north;
 	strcpy_s(exits[4].name, "Bathroom");
 	strcpy_s(exits[4].description, "North there's bathroom.");
 	exits[5].open = true;
 	exits[5].source = &rooms[1];
 	exits[5].destination = &rooms[4];
+	exits[5].direction = east;
 	strcpy_s(exits[5].name, "Aria's bedroom");
 	strcpy_s(exits[5].description, "East there's Aria's bedroom alongside your parents'.");
 	exits[6].open = true;
 	exits[6].source = &rooms[1];
 	exits[6].destination = &rooms[5];
+	exits[6].direction = east;
 	strcpy_s(exits[6].name, "Master bedroom");
 	strcpy_s(exits[6].description, "East there's Aria's bedroom alongside your parents'.");
 	exits[7].open = false;
 	exits[7].source = &rooms[1];
 	exits[7].destination = &rooms[0];
-	strcpy_s(exits[6].name, "Entrance");
-	strcpy_s(exits[6].description, "South there's the way out to the entrance.");
+	exits[7].direction = south;
+	strcpy_s(exits[7].name, "Entrance");
+	strcpy_s(exits[7].description, "South there's the way out to the entrance.");
 	exits[8].open = true;
 	exits[8].source = &rooms[2];
 	exits[8].destination = &rooms[1];
+	exits[8].direction = east;
 	strcpy_s(exits[8].name, "House hall");
 	strcpy_s(exits[8].description, "You can go back to the house hall going east.");
 	exits[9].open = true;
 	exits[9].source = &rooms[3];
 	exits[9].destination = &rooms[1];
+	exits[9].direction = south;
 	strcpy_s(exits[9].name, "House hall");
 	strcpy_s(exits[9].description, "You can go back to the house hall going south.");
 	exits[10].open = true;
 	exits[10].source = &rooms[4];
 	exits[10].destination = &rooms[1];
+	exits[10].direction = west;
 	strcpy_s(exits[10].name, "House hall");
 	strcpy_s(exits[10].description, "You can go back to the house hall going west.");
 	exits[11].open = true;
 	exits[11].source = &rooms[5];
 	exits[11].destination = &rooms[1];
+	exits[11].direction = west;
 	strcpy_s(exits[11].name, "House hall");
 	strcpy_s(exits[11].description, "You can go back to the house hall going west.");
 	exits[12].open = true;
 	exits[12].source = &rooms[5];
 	exits[12].destination = &rooms[6];
+	exits[12].direction = east;
 	strcpy_s(exits[12].name, "Garden");
-	strcpy_s(exits[12].description, "You can climb through the window to the garden.");
+	strcpy_s(exits[12].description, "You can climb through the eastern window to the garden.");
 	exits[13].open = true;
 	exits[13].source = &rooms[6];
 	exits[13].destination = &rooms[0];
+	exits[13].direction = south;
 	strcpy_s(exits[13].name, "Entrance");
 	strcpy_s(exits[13].description, "There's a wooden path back to the entrance south.");
 	exits[14].open = true;
 	exits[14].source = &rooms[6];
 	exits[14].destination = &rooms[7];
+	exits[14].direction = east;
 	strcpy_s(exits[14].name, "Old Cabin");
 	strcpy_s(exits[14].description, "The wooden path continues to the east to what looks like a cabin.");
 	exits[15].open = true;
 	exits[15].source = &rooms[6];
 	exits[15].destination = &rooms[8];
+	exits[15].direction = north;
 	strcpy_s(exits[15].name, "Graveyard");
 	strcpy_s(exits[15].description, "It seems that there's a path where all the grass now stands to the north.");
 	exits[16].open = true;
 	exits[16].source = &rooms[6];
 	exits[16].destination = &rooms[5];
+	exits[16].direction = west;
 	strcpy_s(exits[16].name, "House hall");
 	strcpy_s(exits[16].description, "You can climb through the west window to the master bedroom.");
 	exits[17].open = true;
 	exits[17].source = &rooms[7];
 	exits[17].destination = &rooms[6];
+	exits[17].direction = west;
 	strcpy_s(exits[17].name, "Garden");
 	strcpy_s(exits[17].description, "You can go back to the garden by the wooden path to the west.");
 	exits[18].open = true;
 	exits[18].source = &rooms[8];
 	exits[18].destination = &rooms[6];
+	exits[18].direction = south;
 	strcpy_s(exits[18].name, "Garden");
 	strcpy_s(exits[18].description, "You can go back to the garden through the grass to the south.");
 	exits[19].open = true;
 	exits[19].source = &rooms[9];
 	exits[19].destination = &rooms[0];
+	exits[19].direction = south;
 	strcpy_s(exits[19].name, "Entrance");
 	strcpy_s(exits[19].description, "If you go south you'll return to the entrance.");
 	exits[20].open = true;
 	exits[20].source = &rooms[9];
 	exits[20].destination = &rooms[10];
+	exits[20].direction = north;
 	strcpy_s(exits[20].name, "Cavern");
 	strcpy_s(exits[20].description, "There seems to be something ahead, but it's really dark.");
 	exits[21].open = true;
 	exits[21].source = &rooms[4];
 	exits[21].destination = &rooms[1];
+	exits[21].direction = south;
 	strcpy_s(exits[21].name, "Ruins");
 	strcpy_s(exits[21].description, "To the south there's the way back to the ruins. It's spooky here.");
 

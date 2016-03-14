@@ -7,7 +7,7 @@ public:
 	char name[15];
 	char description[500];
 public:
-	Room();
-	~Room();
+	//Room();
+	//~Room();
 };
 #endif
