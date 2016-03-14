@@ -13,9 +13,10 @@ public:
 	Room* location;
 public:
 	void Look()const;
+	void LookExit(World* world, dir tolook)const;
 	void Move(World* world, dir);
-	void Close(World* world, dir close);
-	void Open(World* world, dir open);
+	void Close(World* world, dir close)const;
+	void Open(World* world, dir open)const;
 	Player();
 	~Player();
 };

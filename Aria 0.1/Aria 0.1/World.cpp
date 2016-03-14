@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 
 #include "World.h"
@@ -11,43 +12,11 @@
 World::World(){
 	//Rooms ----
 	rooms = new Room[11];
-	/*strcpy_s(rooms[0].name, "Entrance");
-	strcpy_s(rooms[0].description, "This is the entrance to what it used to be your house. You remember playing in the porch as a child with your sister when the  walls were still blue, but now the wood looks moldy."
-		"You see a little path through the left and another one to the right. The door to the house is north.\n");
-
-	strcpy_s(rooms[1].name, "House hall");
-	strcpy_s(rooms[1].description, "An empty room. My uncles took all the furniture so now there's nothing left here, just some tables and the big orange sofa covered under cloth.\n The kitchen is west from here, west is my sister's bedroom along with my parents' and north is the bathroom.");
 	
-	strcpy_s(rooms[2].name, "Kitchen");
-	strcpy_s(rooms[2].description, "There's a countetop with drawers in the middle of the room. There's not much more left aside from the washing machine on the right corner. The hall is west.\n");
-	
-	strcpy_s(rooms[3].name, "Bathroom");
-	strcpy_s(rooms[3].description, "The bathroom looks so creepy. There's a rope hanging above the bathtub, and everything's a mess in here. You can return to the hall by going south.\n");
-	
-	strcpy_s(rooms[4].name, "Aria's bedroom");
-	strcpy_s(rooms[4].description, "Your sister's bedroom. The walls are still purple, and a song plays from her music box. You see her looking through the window onto the garden, glowing by the moon's light. You can go back to the hall to the west.\n");
-	
-	strcpy_s(rooms[5].name, "Master bedroom");
-	strcpy_s(rooms[5].description, "Your parents' room. It's empty. You can go back to the hall to the west, or into the garden through the window to the east.\n");
-	
-	strcpy_s(rooms[6].name, "Garden");
-	strcpy_s(rooms[6].description, "The garden is now a complete mess. All the statues and the marble benchs are covered in grass and leaves from the tree. There's a cabin to the east, and the entrance to the south. You can climb inside through inside the house. going west.\n");
-	
-	strcpy_s(rooms[7].name, "Old cabin");
-	strcpy_s(rooms[7].description, "All the gardening stuff is still here, shears, some bricks...\n");
-	
-	strcpy_s(rooms[8].name, "Graveyard");
-	strcpy_s(rooms[8].description, "You see the graves with the names of your parents and your sister engraved in them. There's someone here too.\n");
-	
-	strcpy_s(rooms[9].name, "Ruins");
-	strcpy_s(rooms[9].description, "You used to play with your sister in here. You remember her going deeper into the ruins, but you were too afraid of the darkness, and you still are.\n");
-	
-	strcpy_s(rooms[10].name, "Cavern");
-	strcpy_s(rooms[10].description, "This is where Aria used to come by herself. There's a purple diary at the middle of the room, and some paintings on the walls.\n");*/
-
 	//Exits ---- 
 	exits = new Exit[22];
-	
+	 
+	//Player ----
 	kevin = new Player;
 }
 
@@ -251,4 +220,123 @@ void World::CreateWorld(){
 	//PLAYER ----
 	strcpy_s(kevin->playername, "Kevin.");
 	kevin->location = &rooms[0];
+}
+
+bool World::Command(){
+	char choice[25];
+	char *first;
+	char *scnd;
+	fflush(stdin);
+	scanf_s("%s", choice);
+	strtok_s(choice, " ", &first);
+	strtok_s(first, " ", &scnd);
+
+
+	//LOOK ----
+	if (strcmp(first, "look") == 0){
+		if (scnd == NULL){
+			kevin->Look();
+		}
+		else if (strcmp(scnd, "east") == 0 || strcmp(scnd, "e") == 0){
+			kevin->LookExit(this, east);
+		}
+		else if (strcmp(scnd, "north") == 0 || strcmp(scnd, "n") == 0){
+			kevin->LookExit(this, north);
+		}
+		else if (strcmp(scnd, "west") == 0 || strcmp(scnd, "w") == 0){
+			kevin->LookExit(this, west);
+		}
+		else if (strcmp(scnd, "south") == 0 || strcmp(scnd, "s") == 0){
+			kevin->LookExit(this, south);
+		}
+	}
+
+	//MOVE ----
+	if (scnd == NULL){
+		if (strcmp(first, "east") == 0 || strcmp(first, "e") == 0){
+			kevin->Move(this, east);
+		}
+		if (strcmp(first, "north") == 0 || strcmp(first, "n") == 0){
+			kevin->Move(this, north);
+		}
+		if (strcmp(first, "west") == 0 || strcmp(first, "w") == 0){
+			kevin->Move(this, west);
+		}
+		if (strcmp(first, "south") == 0 || strcmp(first, "s") == 0){
+			kevin->Move(this, south);
+		}
+	}
+
+	if (strcmp(first, "go") == 0){
+		if (scnd == NULL){
+			printf("Where? ");
+		}
+		if (strcmp(scnd, "east") == 0 || strcmp(scnd, "e") == 0){
+			kevin->Move(this, east);
+		}
+		if (strcmp(scnd, "north") == 0 || strcmp(scnd, "n") == 0){
+			kevin->Move(this, north);
+		}
+		if (strcmp(scnd, "west") == 0 || strcmp(scnd, "w") == 0){
+			kevin->Move(this, west);
+		}
+		if (strcmp(scnd, "south") == 0 || strcmp(scnd, "s") == 0){
+			kevin->Move(this, south);
+		}
+	}
+
+
+	//OPEN/CLOSE  ----
+
+	if (strcmp(first, "Open")==0){
+		if (scnd == NULL){
+			printf("Which door do you want to open? Give me a direction. ");
+			scanf_s("%s", &scnd);
+		}
+		else if (strcmp(scnd, "east") == 0 || strcmp(scnd, "e") == 0){
+			kevin->Open(this, east);
+		}
+		else if (strcmp(scnd, "north") == 0 || strcmp(scnd, "n") == 0){
+			kevin->Open(this, north);
+		}
+		else if (strcmp(scnd, "west") == 0 || strcmp(scnd, "w") == 0){
+			kevin->Open(this, west);
+		}
+		else if (strcmp(scnd, "south") == 0 || strcmp(scnd, "s") == 0){
+			kevin->Open(this, south);
+		}
+	}
+
+	if (strcmp(first, "Close") == 0){
+		if (scnd == NULL){
+			printf("Which door do you want to close? Give me a direction. ");
+			scanf_s("%s", &scnd);
+		}
+		else if (strcmp(scnd, "east") == 0 || strcmp(scnd, "e") == 0){
+			kevin->Close(this, east);
+		}
+		else if (strcmp(scnd, "north") == 0 || strcmp(scnd, "n") == 0){
+			kevin->Close(this, north);
+		}
+		else if (strcmp(scnd, "west") == 0 || strcmp(scnd, "w") == 0){
+			kevin->Close(this, west);
+		}
+		else if (strcmp(scnd, "south") == 0 || strcmp(scnd, "s") == 0){
+			kevin->Close(this, south);
+		}
+	}
+
+	//QUIT ----
+
+	if (strcmp(first, "quit") == 0 || strcmp(first, "q") == 0){
+		return false;
+	}
+
+	//WRONG COMMAND ---- 
+
+	else {
+		printf("I did not understand what you said. Sorry! Try again.\n");
+	}
+
+	return true;
 }

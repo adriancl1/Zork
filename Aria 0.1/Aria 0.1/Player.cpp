@@ -17,6 +17,23 @@ void Player::Look()const{
 	printf("%s",location->description);
 }
 
+void Player::LookExit(World* world, dir tolook)const{
+	for (int i = 0; i < NUM_EXITS; i++){
+		if (world->exits[i].source == location){
+			if (world->exits[i].direction == tolook){
+				printf("%s\n", world->exits[i].description);
+			}
+			else{
+				printf("There's nothing that way.\n");
+				break;
+			}
+		}
+		else{
+			printf("Theres nothing there.\n");
+		}
+	}
+}
+
 void Player::Move(World* world, dir go)
 {
 
@@ -40,7 +57,7 @@ void Player::Move(World* world, dir go)
 	}
 }
 
-void Player::Close(World* world, dir close)
+void Player::Close(World* world, dir close)const
 {
 	for (int i = 0; i < NUM_EXITS; i++){
 		if (world->exits[i].source == location){
@@ -57,7 +74,7 @@ void Player::Close(World* world, dir close)
 	}
 }
 
-void Player::Open(World* world, dir open)
+void Player::Open(World* world, dir open)const
 {
 	for (int i = 0; i < NUM_EXITS; i++){
 		if (world->exits[i].source == location){
