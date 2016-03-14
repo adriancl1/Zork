@@ -9,13 +9,9 @@
 
 int main(){
 	char choice[25];
+	//char* tok1;
 	World* world = new World;
-	/*for (int i = 0; i < 11; i++){
-		//printf("%s\n", world->rooms[i].name);
-		//printf("%s", world->rooms[i].description);
-		printf("\n\n%s", world->exits[i].name);
-		printf("\n\n%s", world->exits[i].description);
-	}*/
+	world->CreateWorld();
 	for (int i = 0; i < NUM_EXITS; i++){
 		if (world->exits[i].source == &world->rooms[0]){
 			printf("%s, %c\n", world->exits[i].name, world->exits[i].direction);
@@ -23,26 +19,28 @@ int main(){
 	}
 	
 	world->kevin->Look();
-	//world->kevin->Move(world, east);
-	world->kevin->Move(world, north);
-	printf("Where do u wanna go? ");
-	while (1){
-		
+	while (strcmp(choice, "quit") != 0 || strcmp(choice, "q") !=0){
+
 		scanf_s("%s", choice);
-		if (strcmp(choice, "east")==0){
+		//tok1 = strtok_s(choice, " ");
+		//printf("%s", tok1);
+		//Movement ----
+		if (strcmp(choice, "east")==0 || strcmp(choice, "e") ==0){
 			world->kevin->Move(world, east);
 		}
-		else if (strcmp(choice,"north")==0){
+		else if (strcmp(choice, "north") == 0 || strcmp(choice, "n") == 0){
 			world->kevin->Move(world, north);
 		}
-		else if (choice == "west"){
+		else if (choice == "west" || strcmp(choice, "w") == 0){
 			world->kevin->Move(world, west);
 		}
-		else if (choice == "south"){
+		else if (choice == "south" || strcmp(choice, "s") == 0){
 			world->kevin->Move(world, south);
 		}
-		else{
-			printf("No funciona.\n");
+		//Open ----
+		//if (strcmp(choice, "Open"))
+		else {
+			printf("I did not understand what you said. Sorry! Try again.\n");
 		}
 	}
 	system("pause");

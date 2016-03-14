@@ -21,5 +21,6 @@ public:
 	World();
 	~World();
 	void CreateWorld();
+	void Command();
 };
 #endif
