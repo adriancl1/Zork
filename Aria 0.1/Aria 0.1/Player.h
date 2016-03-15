@@ -18,6 +18,7 @@ public:
 	void Move(World* world, dir);
 	void Close(World* world, dir close)const;
 	void Open(World* world, dir open)const;
+	void Help()const;
 	Player();
 	~Player();
 };

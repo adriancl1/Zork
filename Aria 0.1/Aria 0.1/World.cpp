@@ -227,16 +227,21 @@ bool World::Command(){
 	char choice[20];
 	char cmd[10];
 	char first[10];
-	strcpy_s(first, "empty");
 	char scnd[10];
-	strcpy_s(scnd, "empty");
+	strcpy_s(scnd, "void");
 	char *context;
 	gets_s(choice);
+	if (strcmp(choice, "\0") == 0){
+		printf("Type something!\n");
+		return true;
+	}
 	strcpy_s(first, strtok_s(choice, " ", &context));
-	strcpy_s(scnd, strtok_s(NULL, "\n", &context));
+	if (strcmp(context, "") != 0){
+		strcpy_s(scnd, strtok_s(NULL, " ", &context));
+	}
 	//LOOK ----
 	if (strcmp(first, "look") == 0){
-		if (scnd == NULL){
+		if (strcmp(scnd, "void")==0){
 			kevin->Look();
 		}
 		else if (strcmp(scnd, "east") == 0 || strcmp(scnd, "e") == 0){
@@ -254,24 +259,24 @@ bool World::Command(){
 	}
 
 	//MOVE ----
-	else if (strcmp(first, "go")!= 0 && scnd == NULL){
-		if (strcmp(first, "east") == 0 || strcmp(first, "e") == 0){
+		else if (strcmp(first, "east") == 0 || strcmp(first, "e") == 0){
 			kevin->Move(this, east);
 		}
-		if (strcmp(first, "north") == 0 || strcmp(first, "n") == 0){
+		else if (strcmp(first, "north") == 0 || strcmp(first, "n") == 0){
 			kevin->Move(this, north);
 		}
-		if (strcmp(first, "west") == 0 || strcmp(first, "w") == 0){
+		else if (strcmp(first, "west") == 0 || strcmp(first, "w") == 0){
 			kevin->Move(this, west);
 		}
-		if (strcmp(first, "south") == 0 || strcmp(first, "s") == 0){
+		else if (strcmp(first, "south") == 0 || strcmp(first, "s") == 0){
 			kevin->Move(this, south);
 		}
-	}
+
 
 	else if (strcmp(first, "go") == 0){
-		if (scnd == NULL){
+		if (strcmp(scnd, "void") == 0){
 			printf("Where? ");
+			gets_s(scnd);
 		}
 		if (strcmp(scnd, "east") == 0 || strcmp(scnd, "e") == 0){
 			kevin->Move(this, east);
@@ -291,41 +296,47 @@ bool World::Command(){
 	//OPEN/CLOSE  ----
 
 	else if (strcmp(first, "open")==0){
-		if (scnd == NULL){
+		if (strcmp(scnd, "void") == 0){
 			printf("Which door do you want to open? Give me a direction. ");
-			scanf_s("%s", &scnd);
+			gets_s(scnd);
 		}
-		else if (strcmp(scnd, "east") == 0 || strcmp(scnd, "e") == 0){
+		if (strcmp(scnd, "east") == 0 || strcmp(scnd, "e") == 0){
 			kevin->Open(this, east);
 		}
-		else if (strcmp(scnd, "north") == 0 || strcmp(scnd, "n") == 0){
+		if (strcmp(scnd, "north") == 0 || strcmp(scnd, "n") == 0){
 			kevin->Open(this, north);
 		}
-		else if (strcmp(scnd, "west") == 0 || strcmp(scnd, "w") == 0){
+		if (strcmp(scnd, "west") == 0 || strcmp(scnd, "w") == 0){
 			kevin->Open(this, west);
 		}
-		else if (strcmp(scnd, "south") == 0 || strcmp(scnd, "s") == 0){
+		if (strcmp(scnd, "south") == 0 || strcmp(scnd, "s") == 0){
 			kevin->Open(this, south);
 		}
 	}
 
 	else if (strcmp(first, "close") == 0){
-		if (scnd == NULL){
+		if (strcmp(scnd, "void") == 0){
 			printf("Which door do you want to close? Give me a direction. ");
-			scanf_s("%s", &scnd);
+			gets_s(scnd);
 		}
-		else if (strcmp(scnd, "east") == 0 || strcmp(scnd, "e") == 0){
+		if (strcmp(scnd, "east") == 0 || strcmp(scnd, "e") == 0){
 			kevin->Close(this, east);
 		}
-		else if (strcmp(scnd, "north") == 0 || strcmp(scnd, "n") == 0){
+		if (strcmp(scnd, "north") == 0 || strcmp(scnd, "n") == 0){
 			kevin->Close(this, north);
 		}
-		else if (strcmp(scnd, "west") == 0 || strcmp(scnd, "w") == 0){
+		if (strcmp(scnd, "west") == 0 || strcmp(scnd, "w") == 0){
 			kevin->Close(this, west);
 		}
-		else if (strcmp(scnd, "south") == 0 || strcmp(scnd, "s") == 0){
+		if (strcmp(scnd, "south") == 0 || strcmp(scnd, "s") == 0){
 			kevin->Close(this, south);
 		}
+	}
+
+	//HELP ----
+
+	else if (strcmp(first, "help") == 0){
+		kevin->Help();
 	}
 
 	//QUIT ----
