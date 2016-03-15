@@ -23,35 +23,35 @@ void Player::LookExit(World* world, dir tolook)const{
 			if (world->exits[i].direction == tolook){
 				printf("%s\n", world->exits[i].description);
 			}
-			else{
-				printf("There's nothing that way.\n");
-				break;
-			}
 		}
 		else{
-			printf("Theres nothing there.\n");
+			printf("There's nothing there.\n");
+			break;
 		}
 	}
 }
 
 void Player::Move(World* world, dir go)
 {
-
-	for (int i = 0; i < NUM_EXITS; i++){
-		if (world->exits[i].source == location){
-			if (world->exits[i].direction == go){
-				if (world->exits[i].open == true){
-					location = world->exits[i].destination;
-					printf("%s\n%s.\n", world->exits[i].destination->name, world->exits[i].destination->description);
-					break;
-				}
-				else{
-					printf("The door is closed.\n");
-					break;
+	if (antigo == true){
+		for (int i = 0; i < NUM_EXITS; i++){
+			if (world->exits[i].source == location){
+				if (world->exits[i].direction == go){
+					if (world->exits[i].open == true){
+						location = world->exits[i].destination;
+						printf("%s\n%s.\n", world->exits[i].destination->name, world->exits[i].destination->description);
+						antigo = false;
+						break;
+					}
+					else{
+						printf("The door is closed.\n");
+						break;
+					}
 				}
 			}
 			else{
 				printf("Theres nothing there.\n");
+				break;
 			}
 		}
 	}
@@ -84,7 +84,7 @@ void Player::Open(World* world, dir open)const
 					printf("You opened the %s door.\n", world->exits[i].destination);
 				}
 				else{
-					printf("You can't do that.\n");
+					printf("You can't do that here.\n");
 				}
 			}
 		}

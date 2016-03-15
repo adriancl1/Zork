@@ -223,15 +223,17 @@ void World::CreateWorld(){
 }
 
 bool World::Command(){
-	char choice[25];
-	char *first;
-	char *scnd;
 	fflush(stdin);
-	scanf_s("%s", choice);
-	strtok_s(choice, " ", &first);
-	strtok_s(first, " ", &scnd);
-
-
+	char choice[20];
+	char cmd[10];
+	char first[10];
+	strcpy_s(first, "empty");
+	char scnd[10];
+	strcpy_s(scnd, "empty");
+	char *context;
+	gets_s(choice);
+	strcpy_s(first, strtok_s(choice, " ", &context));
+	strcpy_s(scnd, strtok_s(NULL, "\n", &context));
 	//LOOK ----
 	if (strcmp(first, "look") == 0){
 		if (scnd == NULL){
@@ -252,7 +254,7 @@ bool World::Command(){
 	}
 
 	//MOVE ----
-	if (scnd == NULL){
+	else if (strcmp(first, "go")!= 0 && scnd == NULL){
 		if (strcmp(first, "east") == 0 || strcmp(first, "e") == 0){
 			kevin->Move(this, east);
 		}
@@ -267,7 +269,7 @@ bool World::Command(){
 		}
 	}
 
-	if (strcmp(first, "go") == 0){
+	else if (strcmp(first, "go") == 0){
 		if (scnd == NULL){
 			printf("Where? ");
 		}
@@ -288,7 +290,7 @@ bool World::Command(){
 
 	//OPEN/CLOSE  ----
 
-	if (strcmp(first, "Open")==0){
+	else if (strcmp(first, "open")==0){
 		if (scnd == NULL){
 			printf("Which door do you want to open? Give me a direction. ");
 			scanf_s("%s", &scnd);
@@ -307,7 +309,7 @@ bool World::Command(){
 		}
 	}
 
-	if (strcmp(first, "Close") == 0){
+	else if (strcmp(first, "close") == 0){
 		if (scnd == NULL){
 			printf("Which door do you want to close? Give me a direction. ");
 			scanf_s("%s", &scnd);
@@ -328,7 +330,7 @@ bool World::Command(){
 
 	//QUIT ----
 
-	if (strcmp(first, "quit") == 0 || strcmp(first, "q") == 0){
+	else if (strcmp(first, "quit") == 0 || strcmp(first, "q") == 0){
 		return false;
 	}
 
@@ -337,6 +339,6 @@ bool World::Command(){
 	else {
 		printf("I did not understand what you said. Sorry! Try again.\n");
 	}
-
+	kevin->antigo = true;
 	return true;
 }

@@ -11,6 +11,7 @@ class Player
 public:
 	char playername[10];
 	Room* location;
+	bool antigo = true;
 public:
 	void Look()const;
 	void LookExit(World* world, dir tolook)const;

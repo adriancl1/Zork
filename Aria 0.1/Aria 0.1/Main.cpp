@@ -10,14 +10,13 @@
 int main(){
 	char choice[25];
 	bool state = true;
-	World* world = new World;
-	world->CreateWorld();
-	world->kevin->Look();
+	World world;
+	world.CreateWorld();
+	world.kevin->Look();
 
 	while (state == true){
-		state = world->Command();
+		state = world.Command();
 	}
 
-	delete world;
 	return 0;
 }
