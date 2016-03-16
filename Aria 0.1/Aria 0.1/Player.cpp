@@ -53,26 +53,32 @@ void Player::Move(const World* world, const dir go)
 	}//If the previous for hasn't changed antigo (it doesn't find a exit with that direction in the source room), it will print the message. Otherwise antigo goes false and it won't procceed. Antigo is set to true in the world::Command everytime it loops.
 }
 
-void Player::Close(World* world, const dir close)const
+void Player::Close(World* world, const dir close)
 {
+	
 	for (int i = 0; i < NUM_EXITS; i++){
 		if (world->exits[i].source == location){
 			if (world->exits[i].direction == close){
 				if (world->exits[i].open == true){
 					world->exits[i].open = false;
 					printf("You closed the %s door.\n", world->exits[i].destination);
+					antigo = false;
 					break;
 				}
 				else{
 					printf("The door is already closed.\n");
+					antigo = false;
 					break;
 				}
 			}
 		}
 	}
+	if (antigo == true){
+		printf("There's no door that way!.\n");
+	}//Antigo has the same purpose as in the move method
 }
 
-void Player::Open(World* world, const dir open)const
+void Player::Open(World* world, const dir open)
 {
 	for (int i = 0; i < NUM_EXITS; i++){
 		if (world->exits[i].source == location){
@@ -80,19 +86,20 @@ void Player::Open(World* world, const dir open)const
 				if (world->exits[i].open == false){
 					world->exits[i].open = true;
 					printf("You opened the %s door.\n", world->exits[i].destination);
+					antigo = false;
 					break;
 				}
 				else{
 					printf("That door is already open!.\n");
+					antigo = false;
 					break;
 				}
 			}	
 		}
-		else if (i==NUM_EXITS){
-			printf("There's no door there dummy.\n");
-			break;
-		}
 	}
+	if (antigo == true){
+		printf("There's no door that way!.\n");
+	}//Antigo has the same purpose as in the move method
 }
 
 void Player::Help()const{

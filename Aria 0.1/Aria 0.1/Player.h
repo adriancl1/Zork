@@ -16,8 +16,8 @@ public:
 	void Look()const;
 	void LookExit(const World* world, const dir tolook)const;
 	void Move(const World* world, const dir go);
-	void Close(World* world, const dir close)const;
-	void Open(World* world, const dir open)const;
+	void Close(World* world, const dir close);
+	void Open(World* world, const dir open);
 	void Help()const;
 	Player();
 	~Player();
