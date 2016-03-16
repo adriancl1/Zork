@@ -16,7 +16,7 @@ You can quit the game by hitting "q" or "quit". If you need to be reminded of al
 
 ## History
 
-v_0.1 This first version lets you investigate through all the rooms freely, with their (alpha) descriptions. No inventory or interactions with other creatures/environment yet. Stay tuned for more!
+v_0.1 This first version lets you investigate through all the rooms freely, with their (alpha) descriptions. No inventory or interactions with other creatures/environment yet. Master bedroom is only accesible from the garden, but you should be able to go through the House Hall (it creates a conflict with Aria's bedroom being in the same direction). Stay tuned for more!
 
 ## Credits
 
