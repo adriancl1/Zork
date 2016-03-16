@@ -10,14 +10,14 @@ Player::Player()
 
 Player::~Player()
 {
-	
+
 }
 
 void Player::Look()const{
-	printf("%s",location->description);
+	printf("%s\n%s",location->name, location->description);
 }
 
-void Player::LookExit(World* world, dir tolook)const{
+void Player::LookExit(const World* world, const dir tolook)const{
 	for (int i = 0; i < NUM_EXITS; i++){
 		if (world->exits[i].source == location){
 			if (world->exits[i].direction == tolook){
@@ -27,7 +27,7 @@ void Player::LookExit(World* world, dir tolook)const{
 	}
 }
 
-void Player::Move(World* world, dir go)
+void Player::Move(const World* world, const dir go)
 {
 	if (antigo == true){
 		for (int i = 0; i < NUM_EXITS; i++){
@@ -41,19 +41,19 @@ void Player::Move(World* world, dir go)
 					}
 					else{
 						printf("The door is closed.\n");
+						antigo = false;
 						break;
 					}
 				}
 			}
-			/*else{
-				printf("Theres nothing there.\n");
-				break;
-			}*/
 		}
 	}
+	if (antigo == true){
+		printf("There's nothing there.\n");
+	}//If the previous for hasn't changed antigo (it doesn't find a exit with that direction in the source room), it will print the message. Otherwise antigo goes false and it won't procceed. Antigo is set to true in the world::Command everytime it loops.
 }
 
-void Player::Close(World* world, dir close)const
+void Player::Close(World* world, const dir close)const
 {
 	for (int i = 0; i < NUM_EXITS; i++){
 		if (world->exits[i].source == location){
@@ -61,16 +61,18 @@ void Player::Close(World* world, dir close)const
 				if (world->exits[i].open == true){
 					world->exits[i].open = false;
 					printf("You closed the %s door.\n", world->exits[i].destination);
+					break;
 				}
 				else{
-					printf("You can't do that.\n");
+					printf("The door is already closed.\n");
+					break;
 				}
 			}
 		}
 	}
 }
 
-void Player::Open(World* world, dir open)const
+void Player::Open(World* world, const dir open)const
 {
 	for (int i = 0; i < NUM_EXITS; i++){
 		if (world->exits[i].source == location){
@@ -78,11 +80,17 @@ void Player::Open(World* world, dir open)const
 				if (world->exits[i].open == false){
 					world->exits[i].open = true;
 					printf("You opened the %s door.\n", world->exits[i].destination);
+					break;
 				}
 				else{
-					printf("You can't do that here.\n");
+					printf("That door is already open!.\n");
+					break;
 				}
-			}
+			}	
+		}
+		else if (i==NUM_EXITS){
+			printf("There's no door there dummy.\n");
+			break;
 		}
 	}
 }

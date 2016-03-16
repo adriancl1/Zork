@@ -199,9 +199,9 @@ void World::CreateWorld(){
 	exits[19].open = true;
 	exits[19].source = &rooms[9];
 	exits[19].destination = &rooms[0];
-	exits[19].direction = south;
+	exits[19].direction = east;
 	strcpy_s(exits[19].name, "Entrance");
-	strcpy_s(exits[19].description, "If you go south you'll return to the entrance.");
+	strcpy_s(exits[19].description, "If you go east you'll return to the entrance.");
 	
 	exits[20].open = true;
 	exits[20].source = &rooms[9];
@@ -211,8 +211,8 @@ void World::CreateWorld(){
 	strcpy_s(exits[20].description, "There seems to be something ahead, but it's really dark.");
 	
 	exits[21].open = true;
-	exits[21].source = &rooms[4];
-	exits[21].destination = &rooms[1];
+	exits[21].source = &rooms[10];
+	exits[21].destination = &rooms[9];
 	exits[21].direction = south;
 	strcpy_s(exits[21].name, "Ruins");
 	strcpy_s(exits[21].description, "To the south there's the way back to the ruins. It's spooky here.");
@@ -223,6 +223,7 @@ void World::CreateWorld(){
 }
 
 bool World::Command(){
+	printf("\n");
 	fflush(stdin);
 	char choice[20];
 	char cmd[10];
@@ -240,54 +241,54 @@ bool World::Command(){
 		strcpy_s(scnd, strtok_s(NULL, " ", &context));
 	}
 	//LOOK ----
-	if (strcmp(first, "look") == 0){
+	if (strcmp(first, "look") == 0 || strcmp(first, "Look") == 0){
 		if (strcmp(scnd, "void")==0){
 			kevin->Look();
 		}
-		else if (strcmp(scnd, "east") == 0 || strcmp(scnd, "e") == 0){
+		else if (strcmp(scnd, "east") == 0 || strcmp(scnd, "e") == 0 || strcmp(scnd, "East") == 0){
 			kevin->LookExit(this, east);
 		}
-		else if (strcmp(scnd, "north") == 0 || strcmp(scnd, "n") == 0){
+		else if (strcmp(scnd, "north") == 0 || strcmp(scnd, "n") == 0 || strcmp(scnd, "North") == 0){
 			kevin->LookExit(this, north);
 		}
-		else if (strcmp(scnd, "west") == 0 || strcmp(scnd, "w") == 0){
+		else if (strcmp(scnd, "west") == 0 || strcmp(scnd, "w") == 0 || strcmp(scnd, "West") == 0){
 			kevin->LookExit(this, west);
 		}
-		else if (strcmp(scnd, "south") == 0 || strcmp(scnd, "s") == 0){
+		else if (strcmp(scnd, "south") == 0 || strcmp(scnd, "s") == 0 || strcmp(scnd, "South") == 0){
 			kevin->LookExit(this, south);
 		}
 	}
 
 	//MOVE ----
-		else if (strcmp(first, "east") == 0 || strcmp(first, "e") == 0){
+		else if (strcmp(first, "east") == 0 || strcmp(first, "e") == 0|| strcmp(first, "East") == 0){
 			kevin->Move(this, east);
 		}
-		else if (strcmp(first, "north") == 0 || strcmp(first, "n") == 0){
+		else if (strcmp(first, "north") == 0 || strcmp(first, "n") == 0 || strcmp(first, "North") == 0){
 			kevin->Move(this, north);
 		}
-		else if (strcmp(first, "west") == 0 || strcmp(first, "w") == 0){
+		else if (strcmp(first, "west") == 0 || strcmp(first, "w") == 0 || strcmp(first, "West") == 0){
 			kevin->Move(this, west);
 		}
-		else if (strcmp(first, "south") == 0 || strcmp(first, "s") == 0){
+		else if (strcmp(first, "south") == 0 || strcmp(first, "s") == 0 || strcmp(first, "South") == 0){
 			kevin->Move(this, south);
 		}
 
 
-	else if (strcmp(first, "go") == 0){
+		else if (strcmp(first, "go") == 0 || strcmp(first, "Go") == 0){
 		if (strcmp(scnd, "void") == 0){
 			printf("Where? ");
 			gets_s(scnd);
 		}
-		if (strcmp(scnd, "east") == 0 || strcmp(scnd, "e") == 0){
+		if (strcmp(scnd, "east") == 0 || strcmp(scnd, "e") == 0 || strcmp(scnd, "East") == 0){
 			kevin->Move(this, east);
 		}
-		if (strcmp(scnd, "north") == 0 || strcmp(scnd, "n") == 0){
+		if (strcmp(scnd, "north") == 0 || strcmp(scnd, "n") == 0 || strcmp(scnd, "North") == 0){
 			kevin->Move(this, north);
 		}
-		if (strcmp(scnd, "west") == 0 || strcmp(scnd, "w") == 0){
+		if (strcmp(scnd, "west") == 0 || strcmp(scnd, "w") == 0 || strcmp(scnd, "West") == 0){
 			kevin->Move(this, west);
 		}
-		if (strcmp(scnd, "south") == 0 || strcmp(scnd, "s") == 0){
+		if (strcmp(scnd, "south") == 0 || strcmp(scnd, "s") == 0 || strcmp(scnd, "South") == 0){
 			kevin->Move(this, south);
 		}
 	}
@@ -295,53 +296,53 @@ bool World::Command(){
 
 	//OPEN/CLOSE  ----
 
-	else if (strcmp(first, "open")==0){
+		else if (strcmp(first, "open") == 0 || strcmp(first, "Open") == 0){
 		if (strcmp(scnd, "void") == 0){
 			printf("Which door do you want to open? Give me a direction. ");
 			gets_s(scnd);
 		}
-		if (strcmp(scnd, "east") == 0 || strcmp(scnd, "e") == 0){
+		if (strcmp(scnd, "east") == 0 || strcmp(scnd, "e") == 0 || strcmp(scnd, "East") == 0){
 			kevin->Open(this, east);
 		}
-		if (strcmp(scnd, "north") == 0 || strcmp(scnd, "n") == 0){
+		if (strcmp(scnd, "north") == 0 || strcmp(scnd, "n") == 0 || strcmp(scnd, "North") == 0){
 			kevin->Open(this, north);
 		}
-		if (strcmp(scnd, "west") == 0 || strcmp(scnd, "w") == 0){
+		if (strcmp(scnd, "west") == 0 || strcmp(scnd, "w") == 0 || strcmp(scnd, "West") == 0){
 			kevin->Open(this, west);
 		}
-		if (strcmp(scnd, "south") == 0 || strcmp(scnd, "s") == 0){
+		if (strcmp(scnd, "south") == 0 || strcmp(scnd, "s") == 0 || strcmp(scnd, "South") == 0){
 			kevin->Open(this, south);
 		}
 	}
 
-	else if (strcmp(first, "close") == 0){
+		else if (strcmp(first, "close") == 0 || strcmp(first, "Close") == 0){
 		if (strcmp(scnd, "void") == 0){
 			printf("Which door do you want to close? Give me a direction. ");
 			gets_s(scnd);
 		}
-		if (strcmp(scnd, "east") == 0 || strcmp(scnd, "e") == 0){
+		if (strcmp(scnd, "east") == 0 || strcmp(scnd, "e") == 0 || strcmp(scnd, "East") == 0){
 			kevin->Close(this, east);
 		}
-		if (strcmp(scnd, "north") == 0 || strcmp(scnd, "n") == 0){
+		if (strcmp(scnd, "north") == 0 || strcmp(scnd, "n") == 0 || strcmp(scnd, "North") == 0){
 			kevin->Close(this, north);
 		}
-		if (strcmp(scnd, "west") == 0 || strcmp(scnd, "w") == 0){
+		if (strcmp(scnd, "west") == 0 || strcmp(scnd, "w") == 0 || strcmp(scnd, "West") == 0){
 			kevin->Close(this, west);
 		}
-		if (strcmp(scnd, "south") == 0 || strcmp(scnd, "s") == 0){
+		if (strcmp(scnd, "south") == 0 || strcmp(scnd, "s") == 0 || strcmp(scnd, "South") == 0){
 			kevin->Close(this, south);
 		}
 	}
 
 	//HELP ----
 
-	else if (strcmp(first, "help") == 0){
+		else if (strcmp(first, "help") == 0 || strcmp(first, "Help") == 0){
 		kevin->Help();
 	}
 
 	//QUIT ----
 
-	else if (strcmp(first, "quit") == 0 || strcmp(first, "q") == 0){
+	else if (strcmp(first, "quit") == 0 || strcmp(first, "q") == 0 || strcmp(first, "Quit") == 0){
 		return false;
 	}
 

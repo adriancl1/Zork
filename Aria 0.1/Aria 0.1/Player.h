@@ -14,10 +14,10 @@ public:
 	bool antigo = true;
 public:
 	void Look()const;
-	void LookExit(World* world, dir tolook)const;
-	void Move(World* world, dir);
-	void Close(World* world, dir close)const;
-	void Open(World* world, dir open)const;
+	void LookExit(const World* world, const dir tolook)const;
+	void Move(const World* world, const dir go);
+	void Close(World* world, const dir close)const;
+	void Open(World* world, const dir open)const;
 	void Help()const;
 	Player();
 	~Player();

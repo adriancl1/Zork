@@ -9,12 +9,13 @@ int main(){
 	bool state = true;
 	World* world=new World;
 	world->CreateWorld();
-	world->kevin->Look();
+
+	world->kevin->Look();//Starts with room[0] description
 
 	while (state == true){
 		state = world->Command();
 	}
 
-	delete[] world;
+	delete world;
 	return 0;
 }
