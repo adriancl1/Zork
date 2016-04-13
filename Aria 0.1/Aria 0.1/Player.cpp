@@ -1,9 +1,11 @@
 #include <stdio.h>
 
+#include "String.h"
 #include "Player.h"
 #include "World.h"
+#include "DynamicArray.h"
 
-Player::Player()
+Player::Player(const char* name, const char* description, Room* room) : Entity(name, description, PLAYER), location(room)
 {
 	
 }
@@ -14,12 +16,12 @@ Player::~Player()
 }
 
 void Player::Look()const{
-	printf("%s\n%s",location->name, location->description);
+	printf("%s\n%s",location->get_name, location->get_description);
 }
 
 void Player::LookExit(const World* world, const dir tolook)const{
 	for (int i = 0; i < NUM_EXITS; i++){
-		if (world->exits[i].source == location){
+		if (world->exits[i]->source == location){
 			if (world->exits[i].direction == tolook){
 				printf("%s\n", world->exits[i].description);
 			}

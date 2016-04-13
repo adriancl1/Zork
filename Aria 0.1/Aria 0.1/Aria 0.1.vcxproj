@@ -64,6 +64,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Exit.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -72,6 +73,8 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DynamicArray.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="Exit.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Room.h" />

@@ -1,10 +1,11 @@
 #ifndef WORLD_HEADER
 #define WORLD_HEADER
 
-#include "Room.h"
-#include "Exit.h"
-#include "Player.h"
+#include "DynamicArray.h"
 
+class Room;
+class Exit;
+class Player;
 
 
 #define NUM_ROOMS 11
@@ -14,9 +15,9 @@
 class World
 {
 public:
-	Room* rooms;
-	Exit* exits;
-	Player* kevin;
+	Vector<Room*> rooms;
+	Vector<Exit*> exits;
+	Vector<Player*> player;
 public:
 	World();
 	~World();

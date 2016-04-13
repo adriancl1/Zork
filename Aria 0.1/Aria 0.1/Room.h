@@ -1,13 +1,13 @@
 #ifndef ROOM_HEADER
 #define ROOM_HEADER
 
-class Room
+#include "Entity.h"
+
+class Room : public Entity
 {
+
 public:
-	char name[15];
-	char description[500];
-public:
-	Room();
+	Room(const char* name, const char* description);
 	~Room();
 };
 #endif

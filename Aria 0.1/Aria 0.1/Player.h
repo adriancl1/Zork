@@ -3,13 +3,13 @@
 
 #include "Room.h"
 #include "Exit.h"
+#include "Entity.h"
 
 class World;
 
-class Player
+class Player : Entity
 {
 public:
-	char playername[10];
 	Room* location;
 	bool antigo = true;
 public:
@@ -19,7 +19,7 @@ public:
 	void Close(World* world, const dir close);
 	void Open(World* world, const dir open);
 	void Help()const;
-	Player();
+	Player(const char* name, const char* description, Room* room);
 	~Player();
 };
 #endif

@@ -3,6 +3,11 @@
 #include <string.h>
 #define _CRT_SECURE_NO_WARNINGS
 
+String::String()
+{
+
+}
+
 String::String(const char* str)
 {
 	max_capacity = strlen(str) + 1;
@@ -52,11 +57,8 @@ bool String::operator == (const char* str)const
 
 void String::operator += (const String& str)
 {
-	/*int len = strlen(str.buffer) + 1;
-	strcat_s(buffer, len, str.buffer);*/
 
-	if (str.length() + length() + 1
- > max_capacity)
+	if (str.length() + length() + 1 > max_capacity)
 	{
 		max_capacity += str.length();
 		char* temp = nullptr;
@@ -119,4 +121,9 @@ void String::shrink_to_fit()
 	{
 		printf("The capacity is already the string length\n");
 	}
+}
+
+Vector<String*> String::Tokenize()
+{
+
 }

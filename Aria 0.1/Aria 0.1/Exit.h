@@ -2,20 +2,19 @@
 #define EXIT_HEADER
 
 #include "Room.h"
+#include "Entity.h"
 
 enum dir{ north, south, east, west };
 
-class Exit
+class Exit : public Entity
 {
 public:
 	bool open;
-	Room* source=nullptr;
-	Room* destination=nullptr;
-	char name[15];
-	char description[500];
+	const Room* source=nullptr;
+	const Room* destination=nullptr;
 	dir direction;
 public:
-	Exit();
+	Exit(const char* name, const char* description, bool open, const Room* source, const Room* destination, dir direction);
 	~Exit();
 };
 #endif
