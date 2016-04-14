@@ -6,6 +6,7 @@
 class Room;
 class Exit;
 class Player;
+class Item;
 
 
 #define NUM_ROOMS 11
@@ -15,6 +16,7 @@ class Player;
 class World
 {
 public:
+	Vector<Item*> items;
 	Vector<Room*> rooms;
 	Vector<Exit*> exits;
 	Vector<Player*> player;

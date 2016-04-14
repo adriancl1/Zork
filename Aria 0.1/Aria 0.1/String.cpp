@@ -123,7 +123,19 @@ void String::shrink_to_fit()
 	}
 }
 
-/*Vector<String*> String::Tokenize()
+Vector<String*> String::Tokenize()
 {
-
-}*/
+	Vector<String*> tokens;
+	char* str = buffer;
+	unsigned int i=0;
+	while (i<this->length()){
+		while(*str != ' ' && i<this->length()){
+			str++;
+			i++;
+		}
+		str++;
+		i++;
+		tokens.push_back(new String(str));
+	}
+	return tokens;
+}

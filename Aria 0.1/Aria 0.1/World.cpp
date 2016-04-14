@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "Room.h"
+#include "Item.h"
 #include "Exit.h"
 #include "Player.h"
 #include "World.h"
@@ -19,6 +20,7 @@ World::~World(){
 }
 
 void World::CreateWorld(){
+
 	//ROOMS ----
 	Room* Entrance = new Room("Entrance", "This is the entrance to what it used to be your house. You remember playing in the porch as a child with your sister when the  walls were still blue, but now the wood looks moldy."
 		"You see a little path through the left and another one to the right. The door to the house is north.\n");
@@ -55,6 +57,47 @@ void World::CreateWorld(){
 	rooms.push_back(Ruins);
 	rooms.push_back(Cavern);
 
+	//ITEMS ----
+
+	Item* Rug = new Item("Old Rug", "An old rug with a 'hello!' on it.", rooms[0]);
+	Item* OldKey = new Item("Old Key", "The key under the rug. It may open something...", rooms[0]);
+	Item* Shears = new Item("Shears", "Gardening shears. They may be able to break something.", rooms[6]);
+	Item* Brick = new Item("Brick", "A red brick.", rooms[7]);
+	Item* AriaKey = new Item("Key to Aria's Room", "You can tell this key is from Aria's by the purple butterfly on it", rooms[5]);
+	Item* Rope = new Item("Rope", "A rope... Seems that it was once used to hang something heavy.", rooms[3]);
+	Item* Candle = new Item("Candle", "A candle. Mom used to buy a lot of these cinnamon ones.", rooms[3]);
+	Item* MatchesBox = new Item("Box of matches", "There are three matches inside.", rooms[2]);
+	Item* DrawerKey = new Item("Drawer's key", "A key found at the kitchen.", rooms[2]);
+	Item* Chair = new Item("Chair", "Seems like it would resist my weight if I needed to stand on it...", rooms[1]);
+	Item* Knife = new Item("Knife", "A knife. Maybe I can use it to scare the man outside.", rooms[2]);
+	Item* Diary = new Item("Diary", "Aria's diary. Inside are all her thoughts.", rooms[10]);
+
+	items.push_back(Rug);
+	items.push_back(OldKey);
+	items.push_back(Shears);
+	items.push_back(Brick);
+	items.push_back(AriaKey);
+	items.push_back(Rope);
+	items.push_back(Candle);
+	items.push_back(MatchesBox);
+	items.push_back(DrawerKey);
+	items.push_back(Chair);
+	items.push_back(Knife);
+	items.push_back(Diary);
+
+	rooms[0]->my_entities.push_back(Rug);
+	rooms[0]->my_entities.push_back(OldKey);
+	rooms[6]->my_entities.push_back(Shears);
+	rooms[7]->my_entities.push_back(Brick);
+	rooms[5]->my_entities.push_back(AriaKey);
+	rooms[3]->my_entities.push_back(Rope);
+	rooms[3]->my_entities.push_back(Candle);
+	rooms[1]->my_entities.push_back(Chair);
+	rooms[2]->my_entities.push_back(MatchesBox);
+	rooms[2]->my_entities.push_back(DrawerKey);
+	rooms[2]->my_entities.push_back(Knife);
+	rooms[10]->my_entities.push_back(Diary);
+
 	//EXITS  ----
 	exits.push_back(new Exit("House Hall", "North there's the house door", false, rooms[0], rooms[1], north));
 	exits.push_back(new Exit("Ruins", "There's a path that seems to lead to some ruins to the west", true, rooms[0], rooms[9], west));
@@ -85,7 +128,8 @@ void World::CreateWorld(){
 }
 
 bool World::Command(){
-	Vector<String> input;
+	printf("%s", items[0]->get_name());
+	Vector<String*> input;
 	printf("\n");
 	fflush(stdin);
 	char choice[20];
@@ -95,6 +139,10 @@ bool World::Command(){
 	strcpy_s(scnd, "void");
 	char *context;
 	gets_s(choice);
+	String coice(choice);
+	coice.shrink_to_fit();
+	input = coice.Tokenize();
+	printf("%s, %s\n", input.buffer[0]->c_str(), input.buffer[1]->c_str());
 	if (strcmp(choice, "\0") == 0){
 		printf("Type something!\n");
 		return true;
