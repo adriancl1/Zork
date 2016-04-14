@@ -110,7 +110,7 @@ public:
 			buffer = new TYPE[max_capacity];
 			for (unsigned int i = 0; i < max_capacity; i++)
 			{
-				buffer[i] = temp.buffer[i];
+				buffer[i] != NULL ? buffer[i] = temp.buffer[i] : ;
 			}
 		}
 	}
@@ -119,6 +119,15 @@ public:
 	{
 		delete[] this;
 		this = new Vector();
+	}
+
+	void Remove(const TYPE& to_remove)
+	{
+		for (unsigned int i = 0; i < num_elements; i++)
+		{
+			if (buffer[i] == to_remove){ buffer[i] = NULL;  }
+		}
+		this->shrink_to_fit();
 	}
 
 

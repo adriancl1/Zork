@@ -8,7 +8,7 @@ enum type{PLAYER, ROOM, ITEM, EXIT};
 
 class Entity
 {
-private:
+public:
 	String name;
 	String description;
 	Vector<Entity*> my_entities;
@@ -17,11 +17,11 @@ private:
 public:
 	Entity();
 	Entity(const char* name, const char* description, type mytype);
-	void Look();
-	void Insert(Entity& container);
-	void Remove(Entity&);
-	virtual char* get_name()const;
-	virtual char* get_description()const;
+	virtual void Insert(Entity* container);
+	virtual void Remove(Entity*);
+	virtual void Look()const;
+	char* get_name()const;
+	char* get_description()const;
 };
 
 #endif

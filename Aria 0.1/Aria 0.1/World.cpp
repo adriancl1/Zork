@@ -87,6 +87,7 @@ void World::CreateWorld(){
 bool World::Command(){
 	int i;
 	printf("%s", rooms[3]->get_name());
+	rooms[3]->
 	exits[i]->source;
 	Vector<String> input;
 	printf("\n");
