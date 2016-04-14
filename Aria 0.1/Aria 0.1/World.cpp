@@ -85,7 +85,6 @@ void World::CreateWorld(){
 }
 
 bool World::Command(){
-	printf("%s", rooms.buffer[3]->get_name());
 	Vector<String> input;
 	printf("\n");
 	fflush(stdin);

@@ -33,10 +33,10 @@ void Player::Move(const World* world, const dir go)
 {
 	if (antigo == true){
 		for (int i = 0; i < NUM_EXITS; i++){
-			if (world->exits.buffer[i]->source == location){
+			if (world->exits.buffer[i]->source == this->location){
 				if (world->exits.buffer[i]->direction == go){
 					if (world->exits.buffer[i]->open == true){
-						//location = world->exits.buffer[i]->destination;
+						this->location = world->exits.buffer[i]->destination;
 						printf("%s\n%s.\n", world->exits.buffer[i]->destination->get_name(), world->exits.buffer[i]->destination->get_description());
 						antigo = false;
 						break;

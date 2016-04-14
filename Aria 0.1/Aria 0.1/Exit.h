@@ -10,11 +10,11 @@ class Exit : public Entity
 {
 public:
 	bool open;
-	const Room* source=nullptr;
-	const Room* destination=nullptr;
+	Room* source=nullptr;
+	Room* destination=nullptr;
 	dir direction;
 public:
-	Exit(const char* name, const char* description, bool open, const Room* source, const Room* destination, dir direction);
+	Exit(const char* name, const char* description, bool open,  Room* source,  Room* destination, dir direction);
 	~Exit();
 };
 #endif
