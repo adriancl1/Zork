@@ -14,7 +14,7 @@ public:
 	String(const String& str);
 	~String();
 	unsigned int length()const;
-	const char* c_str()const;
+	char* c_str()const;
 	bool empty()const;
 	bool operator == (const String& str)const;
 	bool String::operator == (const char* str)const;

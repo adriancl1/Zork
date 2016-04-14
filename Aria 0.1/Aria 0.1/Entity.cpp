@@ -7,19 +7,26 @@ Entity::Entity(const char* name, const char* description, type mytype) : name(na
 
 char* Entity::get_name()const
 {
-	return name.c_str;
+	return name.c_str();
 }
 
 char* Entity::get_description()const
 {
-	return description.c_str;
+	return description.c_str();
 }
 
 void Entity::Look()const
 {
-	printf("%s\n%s", name.c_str, description.c_str);
+	printf("%s\n%s", name.c_str(), description.c_str());
 }
 
+
+void Entity::Insert(Entity* container)
+{
+
+}
+
+void Entity::Remove(Entity* container){}
 /*void Entity::Insert(Entity* container)
 {
 	if (this->my_type == ITEM){

@@ -35,7 +35,7 @@ unsigned int String::length()const
 	return strlen(buffer);
 }
 
-const char* String::c_str()const
+char* String::c_str()const
 {
 	return buffer;
 }
@@ -123,7 +123,7 @@ void String::shrink_to_fit()
 	}
 }
 
-Vector<String*> String::Tokenize()
+/*Vector<String*> String::Tokenize()
 {
 
-}
+}*/

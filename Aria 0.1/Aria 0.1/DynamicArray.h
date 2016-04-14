@@ -110,7 +110,9 @@ public:
 			buffer = new TYPE[max_capacity];
 			for (unsigned int i = 0; i < max_capacity; i++)
 			{
-				buffer[i] != NULL ? buffer[i] = temp.buffer[i] : ;
+				if (buffer[i] != NULL){
+					buffer[i] = temp.buffer[i];
+				}
 			}
 		}
 	}

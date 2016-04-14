@@ -85,10 +85,7 @@ void World::CreateWorld(){
 }
 
 bool World::Command(){
-	int i;
-	printf("%s", rooms[3]->get_name());
-	rooms[3]->
-	exits[i]->source;
+	printf("%s", rooms.buffer[3]->get_name());
 	Vector<String> input;
 	printf("\n");
 	fflush(stdin);
