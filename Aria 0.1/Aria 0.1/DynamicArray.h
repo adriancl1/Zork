@@ -2,6 +2,7 @@
 #define __DYNAMICARRAY_H__
 
 #include <stdio.h>
+#include <assert.h>
 
 class String;
 
@@ -12,7 +13,6 @@ class Vector
 public:
 	Vector <TYPE>()
 	{
-		num_elements = 0;
 		max_capacity = 5;
 		buffer = new TYPE[max_capacity];
 
@@ -34,6 +34,12 @@ public:
 		for (unsigned int i = 0; i < num_elements; i++){
 			buffer[i] = tocopy->buffer[i];
 		}
+	}
+
+	Vector<TYPE>(unsigned int num)
+	{
+		max_capacity = num;
+		buffer = new TYPE[max_capacity];
 	}
 
 	void push_back(const TYPE& data)
@@ -76,8 +82,15 @@ public:
 		num_elements++;
 	}
 
-	TYPE& operator[](int a)
+	TYPE operator[](unsigned int a)const
 	{
+		assert(a < num_elements);
+		return buffer[a];
+	}
+
+	TYPE& operator[](unsigned int a)
+	{
+		assert(a < num_elements);
 		return buffer[a];
 	}
 
@@ -96,10 +109,15 @@ public:
 		return max_capacity;
 	}
 
-	void pop_back()
+	bool pop_back(TYPE& value)
 	{
-		buffer[--num_elements] = NULL;
-	}	//popback elimina el ultimo elemento
+		if (num_elements > 0){
+			--num_elements;
+			value = vector[num_elements];
+			return true;
+		}
+		else{ return false; }
+	}
 
 	void shrink_to_fit(){
 		if(max_capacity > num_elements)
@@ -136,7 +154,7 @@ public:
 public:
 	TYPE* buffer;
 private:
-	unsigned int num_elements;
+	unsigned int num_elements = 0;
 	unsigned int max_capacity;
 };
 #endif

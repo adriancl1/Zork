@@ -21,9 +21,9 @@ void Player::Look()const{
 
 void Player::LookExit(const World* world, const dir tolook)const{
 	for (int i = 0; i < NUM_EXITS; i++){
-		if (world->exits.buffer[i]->source == location){
-			if (world->exits.buffer[i]->direction == tolook){
-				printf("%s\n", world->exits.buffer[i]->get_description());
+		if (world->exits[i]->source == location){
+			if (world->exits[i]->direction == tolook){
+				printf("%s\n", world->exits[i]->get_description());
 			}
 		}
 	}
@@ -33,11 +33,11 @@ void Player::Move(const World* world, const dir go)
 {
 	if (antigo == true){
 		for (int i = 0; i < NUM_EXITS; i++){
-			if (world->exits.buffer[i]->source == this->location){
-				if (world->exits.buffer[i]->direction == go){
-					if (world->exits.buffer[i]->open == true){
-						this->location = world->exits.buffer[i]->destination;
-						printf("%s\n%s.\n", world->exits.buffer[i]->destination->get_name(), world->exits.buffer[i]->destination->get_description());
+			if (world->exits[i]->source == this->location){
+				if (world->exits[i]->direction == go){
+					if (world->exits[i]->open == true){
+						this->location = world->exits[i]->destination;
+						printf("%s\n%s.\n", world->exits[i]->destination->get_name(), world->exits[i]->destination->get_description());
 						antigo = false;
 						break;
 					}
@@ -59,11 +59,11 @@ void Player::Close(World* world, const dir close)
 {
 	
 	for (int i = 0; i < NUM_EXITS; i++){
-		if (world->exits.buffer[i]->source == location){
-			if (world->exits.buffer[i]->direction == close){
-				if (world->exits.buffer[i]->open == true){
-					world->exits.buffer[i]->open = false;
-					printf("You closed the %s door.\n", world->exits.buffer[i]->destination->get_name());
+		if (world->exits[i]->source == location){
+			if (world->exits[i]->direction == close){
+				if (world->exits[i]->open == true){
+					world->exits[i]->open = false;
+					printf("You closed the %s door.\n", world->exits[i]->destination->get_name());
 					antigo = false;
 					break;
 				}
@@ -83,11 +83,11 @@ void Player::Close(World* world, const dir close)
 void Player::Open(World* world, const dir open)
 {
 	for (int i = 0; i < NUM_EXITS; i++){
-		if (world->exits.buffer[i]->source == location){
-			if (world->exits.buffer[i]->direction == open){
-				if (world->exits.buffer[i]->open == false){
-					world->exits.buffer[i]->open = true;
-					printf("You opened the %s door.\n", world->exits.buffer[i]->destination->get_name());
+		if (world->exits[i]->source == location){
+			if (world->exits[i]->direction == open){
+				if (world->exits[i]->open == false){
+					world->exits[i]->open = true;
+					printf("You opened the %s door.\n", world->exits[i]->destination->get_name());
 					antigo = false;
 					break;
 				}
