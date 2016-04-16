@@ -22,7 +22,7 @@ public:
 	void Open(World* world, const dir open);
 	void Inventory()const;
 	void Pick(String item);
-	void Drop(const String* item);
+	void Drop(String item);
 	void Help()const;
 	Player(const char* name, const char* description, Room* room);
 	~Player();

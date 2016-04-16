@@ -59,18 +59,18 @@ void World::CreateWorld(){
 
 	//ITEMS ----
 
-	Item* Rug = new Item("Rug", "An old rug with a 'hello!' on it.", rooms[0]);
-	Item* OldKey = new Item("Key", "The key under the rug. It may open something...", rooms[0]);
-	Item* Shears = new Item("Shears", "Gardening shears. They may be able to break something.", rooms[6]);
-	Item* Brick = new Item("Brick", "A red brick.", rooms[7]);
-	Item* AriaKey = new Item("Key to Aria's Room", "You can tell this key is from Aria's by the purple butterfly on it", rooms[5]);
-	Item* Rope = new Item("Rope", "A rope... Seems that it was once used to hang something heavy.", rooms[3]);
-	Item* Candle = new Item("Candle", "A candle. Mom used to buy a lot of these cinnamon ones.", rooms[3]);
-	Item* MatchesBox = new Item("Box of matches", "There are three matches inside.", rooms[2]);
-	Item* DrawerKey = new Item("Drawer's key", "A key found at the kitchen.", rooms[2]);
-	Item* Chair = new Item("Chair", "Seems like it would resist my weight if I needed to stand on it...", rooms[1]);
-	Item* Knife = new Item("Knife", "A knife. Maybe I can use it to scare the man outside.", rooms[2]);
-	Item* Diary = new Item("Diary", "Aria's diary. Inside are all her thoughts.", rooms[10]);
+	Item* Rug = new Item("rug", "An old rug with a 'hello!' on it.", rooms[0]);
+	Item* OldKey = new Item("key", "The key under the rug. It may open something...", rooms[0]);
+	Item* Shears = new Item("shears", "Gardening shears. They may be able to break something.", rooms[6]);
+	Item* Brick = new Item("brick", "A red brick.", rooms[7]);
+	Item* AriaKey = new Item("key to Aria's Room", "You can tell this key is from Aria's by the purple butterfly on it", rooms[5]);
+	Item* Rope = new Item("rope", "A rope... Seems that it was once used to hang something heavy.", rooms[3]);
+	Item* Candle = new Item("candle", "A candle. Mom used to buy a lot of these cinnamon ones.", rooms[3]);
+	Item* MatchesBox = new Item("box of matches", "There are three matches inside.", rooms[2]);
+	Item* DrawerKey = new Item("drawer's key", "A key found at the kitchen.", rooms[2]);
+	Item* Chair = new Item("chair", "Seems like it would resist my weight if I needed to stand on it...", rooms[1]);
+	Item* Knife = new Item("knife", "A knife. Maybe I can use it to scare the man outside.", rooms[2]);
+	Item* Diary = new Item("diary", "Aria's diary. Inside are all her thoughts.", rooms[10]);
 
 	items.push_back(Rug);
 	items.push_back(OldKey);
@@ -245,6 +245,9 @@ bool World::Command(){
 
 		if (input[0]->s_str() == "Pick" || input[0]->s_str() == "pick"){
 			player[0]->Pick(input[1]->s_str());
+		}
+		if (input[0]->s_str() == "Drop" || input[0]->s_str() == "drop"){
+			player[0]->Drop(input[1]->s_str());
 		}
 	}
 	//LOOK ----

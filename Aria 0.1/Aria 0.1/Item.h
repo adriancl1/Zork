@@ -9,8 +9,6 @@ protected:
 	Entity* container;
 public:
 	Item(const char* name, const char* description, Entity* container);
-	void Insert(Entity* container);
-	void Remove(Entity* container);
 	~Item();
 	
 };

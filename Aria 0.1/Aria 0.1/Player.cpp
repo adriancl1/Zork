@@ -128,13 +128,39 @@ void Player::Inventory()const
 
 void Player::Pick(String item)
 {
-	for (unsigned int i = 0; location->my_entities.size() > i; i++)
-	{
-		if (item == location->my_entities[i]->get_name()){
-			my_entities.push_back(location->my_entities[i]);
-			location->my_entities.Remove(my_entities[i]);
-			printf("You picked up a %s", my_entities[i]->get_name());
+	if (my_entities.size() < 1){
+		for (unsigned int i = 0; location->my_entities.size() > i; i++)
+		{
+			if (item == location->my_entities[i]->get_name()){
+				my_entities.push_back(location->my_entities[i]);
+				printf("You picked up a %s", location->my_entities[i]->get_name());
+				location->my_entities.Remove(i);
+				return;
+			}
 		}
+		printf("There's no such thing in here!");
+	}
+	else{
+		printf("You're already carrying too much stuff.");
+	}
+}
+
+void Player::Drop(String item)
+{
+	if (my_entities.size() > 0){
+		for (unsigned int i = 0; my_entities.size() > i; i++)
+		{
+			if (item == my_entities[i]->get_name()){
+				location->my_entities.push_back(my_entities[i]);
+				printf("You droped the %s", my_entities[i]->get_name());
+				my_entities.Remove(i);
+				return;
+			}
+		}
+		printf("You don't have that item.");
+	}
+	else{
+		printf("You don't have any items!");
 	}
 }
 void Player::Help()const{

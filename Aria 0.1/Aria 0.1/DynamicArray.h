@@ -141,12 +141,12 @@ public:
 		this = new Vector();
 	}
 
-	void Remove(const TYPE& to_remove)
+	void Remove(unsigned int index)
 	{
-		for (unsigned int i = 0; i < num_elements; i++)
-		{
-			if (buffer[i] == to_remove){ buffer[i] = NULL;  }
+		for (unsigned int i = index; i < num_elements; i++){
+			buffer[i] = buffer[i + 1];
 		}
+		num_elements--;
 		this->shrink_to_fit();
 	}
 
