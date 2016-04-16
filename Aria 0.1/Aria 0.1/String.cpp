@@ -13,7 +13,6 @@ String::String(const char* str)
 	max_capacity = strlen(str) + 1;
 	buffer = new char[max_capacity];
 	strcpy_s(buffer, max_capacity, str);
-	printf("La clase string amb %s se ha construido.\n", buffer);
 }
 
 String::String(const String& str)
@@ -21,11 +20,9 @@ String::String(const String& str)
 	max_capacity = strlen(str.buffer) + 1;
 	buffer = new char[max_capacity];
 	strcpy_s(buffer, max_capacity, str.buffer);
-	printf("La clase copia string amb %s se ha construido.\n", buffer);
 }
 
 String::~String(){
-	printf("La clase string amb %s se ha destruido.\n", buffer);
 
 	delete[] buffer;
 }
@@ -33,6 +30,12 @@ String::~String(){
 unsigned int String::length()const
 {
 	return strlen(buffer);
+}
+
+String String::s_str()const
+{
+	String copy(buffer);
+	return copy;
 }
 
 char* String::c_str()const

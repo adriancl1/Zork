@@ -59,8 +59,8 @@ void World::CreateWorld(){
 
 	//ITEMS ----
 
-	Item* Rug = new Item("Old Rug", "An old rug with a 'hello!' on it.", rooms[0]);
-	Item* OldKey = new Item("Old Key", "The key under the rug. It may open something...", rooms[0]);
+	Item* Rug = new Item("Rug", "An old rug with a 'hello!' on it.", rooms[0]);
+	Item* OldKey = new Item("Key", "The key under the rug. It may open something...", rooms[0]);
 	Item* Shears = new Item("Shears", "Gardening shears. They may be able to break something.", rooms[6]);
 	Item* Brick = new Item("Brick", "A red brick.", rooms[7]);
 	Item* AriaKey = new Item("Key to Aria's Room", "You can tell this key is from Aria's by the purple butterfly on it", rooms[5]);
@@ -85,18 +85,18 @@ void World::CreateWorld(){
 	items.push_back(Knife);
 	items.push_back(Diary);
 
-	rooms[0]->my_entities.push_back(Rug);
-	rooms[0]->my_entities.push_back(OldKey);
-	rooms[6]->my_entities.push_back(Shears);
-	rooms[7]->my_entities.push_back(Brick);
-	rooms[5]->my_entities.push_back(AriaKey);
-	rooms[3]->my_entities.push_back(Rope);
-	rooms[3]->my_entities.push_back(Candle);
-	rooms[1]->my_entities.push_back(Chair);
-	rooms[2]->my_entities.push_back(MatchesBox);
+	rooms[0]->my_entities.push_back(items[0]);
+	rooms[0]->my_entities.push_back(items[1]);
+	rooms[6]->my_entities.push_back(items[2]);
+	rooms[7]->my_entities.push_back(items[3]);
+	rooms[5]->my_entities.push_back(items[4]);
+	rooms[3]->my_entities.push_back(items[5]);
+	rooms[3]->my_entities.push_back(items[6]);
+	rooms[1]->my_entities.push_back(items[8]);
+	rooms[2]->my_entities.push_back(items[7]);
 	rooms[2]->my_entities.push_back(DrawerKey);
-	rooms[2]->my_entities.push_back(Knife);
-	rooms[10]->my_entities.push_back(Diary);
+	rooms[2]->my_entities.push_back(items[9]);
+	rooms[10]->my_entities.push_back(items[10]);
 
 	//EXITS  ----
 	exits.push_back(new Exit("House Hall", "North there's the house door", false, rooms[0], rooms[1], north));
@@ -128,7 +128,6 @@ void World::CreateWorld(){
 }
 
 bool World::Command(){
-	printf("%s", items[0]->get_name());
 	printf("\n");
 	fflush(stdin);
 	char choice[50];
@@ -141,6 +140,113 @@ bool World::Command(){
 	Vector<String*> input;
 	input = beforetoken.Tokenize();
 	input.shrink_to_fit();
+
+
+	if (input.size() == 1){
+		if (input.buffer[0]->s_str() == "look" || input[0]->s_str() == "l" || input[0]->s_str() == "Look"){
+			player[0]->Look();
+		}
+
+		if (input[0]->s_str() == "east" || input[0]->s_str() == "e" || input[0]->s_str() == "East"){
+			player[0]->Move(this, east);
+		}
+		if (input[0]->s_str() == "north" || input[0]->s_str() == "n" || input[0]->s_str() == "North"){
+			player[0]->Move(this, north);
+		}
+		if (input[0]->s_str() == "west" || input[0]->s_str() == "w" || input[0]->s_str() == "West"){
+			player[0]->Move(this, west);
+		}
+		if (input[0]->s_str() == "south" || input[0]->s_str() == "s" || input[0]->s_str() == "South"){
+			player[0]->Move(this, east);
+		}
+
+		if (input[0]->s_str() == "open" || input[0]->s_str() == "Open"){
+			printf("Which direction? ");
+			gets_s(choice);
+			input.push_back(new String(choice));
+		}
+
+		if (input[0]->s_str() == "close" || input[0]->s_str() == "Close"){
+			printf("Which direction? ");
+			gets_s(choice);
+			input.push_back(new String(choice));
+		}
+
+		if (input[0]->s_str() == "inventory" || input[0]->s_str() == "i" || input[0]->s_str() == "inv" || input[0]->s_str() == "Inventory")
+		{
+			player[0]->Inventory();
+		}
+		if (input[0]->s_str() == "help" || input[0]->s_str() == "h" || input[0]->s_str() == "Help"){
+			player[0]->Help();
+		}
+
+		if (input[0]->s_str() == "q" || input[0]->s_str() == "quit" || input[0]->s_str() == "Quit"){
+			return false;
+		}
+
+	}
+	if (input.size() == 2){
+		if (input.buffer[0]->s_str() == "look" || input[0]->s_str() == "l" || input[0]->s_str() == "Look"){
+			if (input[1]->s_str() == "east" || input[1]->s_str() == "e" || input[1]->s_str() == "East"){
+				player[0]->LookExit(this, east);
+			}
+			if (input[1]->s_str() == "north" || input[1]->s_str() == "n" || input[1]->s_str() == "North"){
+				player[0]->LookExit(this, north);
+			}
+			if (input[1]->s_str() == "west" || input[1]->s_str() == "w" || input[1]->s_str() == "West"){
+				player[0]->LookExit(this, west);
+			}
+			if (input[1]->s_str() == "south" || input[1]->s_str() == "s" || input[1]->s_str() == "South"){
+				player[0]->LookExit(this, east);
+			}
+		}
+		if (input[0]->s_str() == "go" || input[0]->s_str() == "Go"){
+			if (input[1]->s_str() == "east" || input[1]->s_str() == "e" || input[1]->s_str() == "East"){
+				player[0]->Move(this, east);
+			}
+			if (input[1]->s_str() == "north" || input[1]->s_str() == "n" || input[1]->s_str() == "North"){
+				player[0]->Move(this, north);
+			}
+			if (input[1]->s_str() == "west" || input[1]->s_str() == "w" || input[1]->s_str() == "West"){
+				player[0]->Move(this, west);
+			}
+			if (input[1]->s_str() == "south" || input[1]->s_str() == "s" || input[1]->s_str() == "South"){
+				player[0]->Move(this, east);
+			}
+		}
+		if (input[0]->s_str() == "Open" || input[0]->s_str() == "open"){
+			if (input[1]->s_str() == "east" || input[1]->s_str() == "e" || input[1]->s_str() == "East"){
+				player[0]->Open(this, east);
+			}
+			if (input[1]->s_str() == "north" || input[1]->s_str() == "n" || input[1]->s_str() == "North"){
+				player[0]->Open(this, north);
+			}
+			if (input[1]->s_str() == "west" || input[1]->s_str() == "w" || input[1]->s_str() == "West"){
+				player[0]->Open(this, west);
+			}
+			if (input[1]->s_str() == "south" || input[1]->s_str() == "s" || input[1]->s_str() == "South"){
+				player[0]->Open(this, east);
+			}
+		}
+		if (input[0]->s_str() == "Close" || input[0]->s_str() == "close"){
+			if (input[1]->s_str() == "east" || input[1]->s_str() == "e" || input[1]->s_str() == "East"){
+				player[0]->Close(this, east);
+			}
+			if (input[1]->s_str() == "north" || input[1]->s_str() == "n" || input[1]->s_str() == "North"){
+				player[0]->Close(this, north);
+			}
+			if (input[1]->s_str() == "west" || input[1]->s_str() == "w" || input[1]->s_str() == "West"){
+				player[0]->Close(this, west);
+			}
+			if (input[1]->s_str() == "south" || input[1]->s_str() == "s" || input[1]->s_str() == "South"){
+				player[0]->Close(this, east);
+			}
+		}
+
+		if (input[0]->s_str() == "Pick" || input[0]->s_str() == "pick"){
+			player[0]->Pick(input[1]->s_str());
+		}
+	}
 	//LOOK ----
 	/*if (strcmp(first, "look") == 0 || strcmp(first, "Look") == 0){
 		if (strcmp(scnd, "void")==0){
@@ -251,7 +357,7 @@ bool World::Command(){
 
 	else {
 		printf("I did not understand what you said. Sorry! Try again.\n");
-	}
-	player[0]->antigo = true;*/
+	}*/
+	player[0]->antigo = true;
 	return true;
 }

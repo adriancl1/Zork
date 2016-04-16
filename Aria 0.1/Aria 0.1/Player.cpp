@@ -3,7 +3,9 @@
 #include "String.h"
 #include "Player.h"
 #include "World.h"
+#include "Item.h"
 #include "DynamicArray.h"
+#include "Room.h"
 
 Player::Player(const char* name, const char* description, Room* room) : Entity(name, description, PLAYER), location(room)
 {
@@ -17,6 +19,15 @@ Player::~Player()
 
 void Player::Look()const{
 	printf("%s\n%s",location->get_name(), location->get_description());
+	if (location->my_entities.size() >= 1)
+	{
+		printf("You can see a %s", location->my_entities[0]->get_name());
+		for (unsigned int i = 1; location->my_entities.size() > i; i++)
+		{
+			printf(" and a %s,", location->my_entities[i]->get_name());
+		}
+		printf(".\n");
+	}
 }
 
 void Player::LookExit(const World* world, const dir tolook)const{
@@ -104,6 +115,28 @@ void Player::Open(World* world, const dir open)
 	}//Antigo has the same purpose as in the move method
 }
 
+void Player::Inventory()const
+{
+	if (my_entities.size() == 0){
+		printf("You don't have any items at the moment.\n");
+	}
+	for (unsigned int i = 0; my_entities.size() > i; i++)
+	{
+		printf("%s\n", this->my_entities[i]->get_name());
+	}
+}
+
+void Player::Pick(String item)
+{
+	for (unsigned int i = 0; location->my_entities.size() > i; i++)
+	{
+		if (item == location->my_entities[i]->get_name()){
+			my_entities.push_back(location->my_entities[i]);
+			location->my_entities.Remove(my_entities[i]);
+			printf("You picked up a %s", my_entities[i]->get_name());
+		}
+	}
+}
 void Player::Help()const{
 	printf("You can move through the rooms with the keys n, s, e, w, or with the complete words north, south, east, west. You can also use go 'direction'. If you wish to inspect the room, use the 'look' command, you can also look out to wherever direction you want to head next before going in!All rooms can be opened / closed with the open / close 'direction' command(obviously, it'll only work if there's a room that way!). You can quit the game by hitting 'q' or 'quit'.\n");
 }
