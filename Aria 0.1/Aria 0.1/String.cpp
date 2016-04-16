@@ -126,16 +126,10 @@ void String::shrink_to_fit()
 Vector<String*> String::Tokenize()
 {
 	Vector<String*> tokens;
-	char* str = buffer;
-	unsigned int i=0;
-	while (i<this->length()){
-		while(*str != ' ' && i<this->length()){
-			str++;
-			i++;
-		}
-		str++;
-		i++;
-		tokens.push_back(new String(str));
+	char *context=nullptr;
+	tokens.push_back(new String(strtok_s(this->buffer, " ", &context)));
+	while (strcmp(context, "") != 0){
+		tokens.push_back(new String(strtok_s(NULL, " ", &context)));
 	}
 	return tokens;
 }

@@ -129,30 +129,20 @@ void World::CreateWorld(){
 
 bool World::Command(){
 	printf("%s", items[0]->get_name());
-	Vector<String*> input;
 	printf("\n");
 	fflush(stdin);
-	char choice[20];
-	char cmd[10];
-	char first[10];
-	char scnd[10];
-	strcpy_s(scnd, "void");
-	char *context;
+	char choice[50];
 	gets_s(choice);
-	String coice(choice);
-	coice.shrink_to_fit();
-	input = coice.Tokenize();
-	printf("%s, %s\n", input.buffer[0]->c_str(), input.buffer[1]->c_str());
-	if (strcmp(choice, "\0") == 0){
+	String beforetoken(choice);
+	if (beforetoken == "\0"){
 		printf("Type something!\n");
 		return true;
 	}
-	strcpy_s(first, strtok_s(choice, " ", &context));
-	if (strcmp(context, "") != 0){
-		strcpy_s(scnd, strtok_s(NULL, " ", &context));
-	}
+	Vector<String*> input;
+	input = beforetoken.Tokenize();
+	input.shrink_to_fit();
 	//LOOK ----
-	if (strcmp(first, "look") == 0 || strcmp(first, "Look") == 0){
+	/*if (strcmp(first, "look") == 0 || strcmp(first, "Look") == 0){
 		if (strcmp(scnd, "void")==0){
 			player[0]->Look();
 		}
@@ -262,6 +252,6 @@ bool World::Command(){
 	else {
 		printf("I did not understand what you said. Sorry! Try again.\n");
 	}
-	player[0]->antigo = true;
+	player[0]->antigo = true;*/
 	return true;
 }
