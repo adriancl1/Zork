@@ -141,7 +141,10 @@ void Player::Stats()
 }
 void Player::Pick(String item)
 {
-	if (my_entities.size() < 4){//inventory size
+	if (item == "chest"){
+		printf("You can't pick up the chest!");
+	}
+	else if (my_entities.size() < 4){//inventory size
 		for (unsigned int i = 0; location->my_entities.size() > i; i++)
 		{
 			if (item == location->my_entities[i]->get_name() && location->my_entities[i]->my_type == ITEM){
@@ -157,6 +160,7 @@ void Player::Pick(String item)
 		printf("You're already carrying too much stuff.");
 	}
 }
+
 
 void Player::Drop(String item)
 {
@@ -176,6 +180,53 @@ void Player::Drop(String item)
 		printf("You don't have any items!");
 	}
 }
+
+void Player::Get(World* world, String item)
+{
+	if (location == world->rooms[1]){
+		if (my_entities.size() < 4){//inventory size
+			for (unsigned int i = 0; world->items[12]->my_entities.size() > i; i++)
+			{
+				if (item == world->items[12]->my_entities[i]->get_name() && world->items[12]->my_entities[i]->my_type == ITEM){
+					my_entities.push_back(world->items[12]->my_entities[i]);
+					printf("You got a %s from the chest.", world->items[12]->my_entities[i]->get_name());
+					world->items[12]->my_entities.Remove(i);
+					return;
+				}
+			}
+			printf("There's no such thing in here!");
+		}
+		else{
+			printf("You're already carrying too much stuff.");
+		}
+	}
+
+}
+
+
+void Player::Put(World* world, String item)
+{
+	if (location == world->rooms[1]){
+		if (my_entities.size() > 0){
+			for (unsigned int i = 0; my_entities.size() > i; i++)
+			{
+				if (item == my_entities[i]->get_name()){
+					world->items[12]->my_entities.push_back(my_entities[i]);
+					printf("You put the %s into the chest.", my_entities[i]->get_name());
+					my_entities.Remove(i);
+					return;
+				}
+			}
+			printf("You don't have that item.");
+		}
+		else{
+			printf("You don't have any items!");
+		}
+	}
+	
+}
+
+
 void Player::Help()const{
 	printf("You can move through the rooms with the keys n, s, e, w, or with the complete words north, south, east, west. You can also use go 'direction'. If you wish to inspect the room, use the 'look' command, you can also look out to wherever direction you want to head next before going in!All rooms can be opened / closed with the open / close 'direction' command(obviously, it'll only work if there's a room that way!). You can quit the game by hitting 'q' or 'quit'.\n");
 }

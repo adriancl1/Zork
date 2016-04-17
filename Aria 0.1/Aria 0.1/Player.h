@@ -25,6 +25,8 @@ public:
 	void Stats();
 	void Pick(String item);
 	void Drop(String item);
+	void Get(World* world, String item);
+	void Put(World* world, String item);
 	void Help()const;
 	Player(const char* name, const char* description, Room* room);
 	~Player();

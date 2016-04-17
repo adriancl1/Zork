@@ -262,6 +262,15 @@ bool World::Command(){
 			player[0]->Drop(input[1]->s_str());
 		}
 	}
+
+	if (input.size() == 4){
+		if ((input[0]->s_str() == "Get" || input[0]->s_str() == "get") && (input[2]->s_str() == "from") && (input[3]->s_str()=="chest")){
+			player[0]->Get(this, input[1]->s_str());
+		}
+		if ((input[0]->s_str() == "Put" || input[0]->s_str() == "put") && (input[2]->s_str() == "in") && (input[3]->s_str() == "chest")){
+			player[0]->Put(this, input[1]->s_str());
+		}
+	}
 	//LOOK ----
 	/*if (strcmp(first, "look") == 0 || strcmp(first, "Look") == 0){
 		if (strcmp(scnd, "void")==0){
