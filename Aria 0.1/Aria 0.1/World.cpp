@@ -153,49 +153,53 @@ bool World::Command(){
 			player[0]->Look();
 		}
 
-		if (input[0]->s_str() == "east" || input[0]->s_str() == "e" || input[0]->s_str() == "East"){
+		else if (input[0]->s_str() == "east" || input[0]->s_str() == "e" || input[0]->s_str() == "East"){
 			player[0]->Move(this, east);
 		}
-		if (input[0]->s_str() == "north" || input[0]->s_str() == "n" || input[0]->s_str() == "North"){
+		else if (input[0]->s_str() == "north" || input[0]->s_str() == "n" || input[0]->s_str() == "North"){
 			player[0]->Move(this, north);
 		}
-		if (input[0]->s_str() == "west" || input[0]->s_str() == "w" || input[0]->s_str() == "West"){
+		else if (input[0]->s_str() == "west" || input[0]->s_str() == "w" || input[0]->s_str() == "West"){
 			player[0]->Move(this, west);
 		}
-		if (input[0]->s_str() == "south" || input[0]->s_str() == "s" || input[0]->s_str() == "South"){
+		else if (input[0]->s_str() == "south" || input[0]->s_str() == "s" || input[0]->s_str() == "South"){
 			player[0]->Move(this, south);
 		}
 
-		if (input[0]->s_str() == "open" || input[0]->s_str() == "Open"){
+		else if (input[0]->s_str() == "open" || input[0]->s_str() == "Open"){
 			printf("Which direction? ");
 			gets_s(choice);
 			input.push_back(new String(choice));
 		}
 
-		if (input[0]->s_str() == "close" || input[0]->s_str() == "Close"){
+		else if (input[0]->s_str() == "close" || input[0]->s_str() == "Close"){
 			printf("Which direction? ");
 			gets_s(choice);
 			input.push_back(new String(choice));
 		}
 
-		if (input[0]->s_str() == "inventory" || input[0]->s_str() == "i" || input[0]->s_str() == "inv" || input[0]->s_str() == "Inventory")
+		else if (input[0]->s_str() == "inventory" || input[0]->s_str() == "i" || input[0]->s_str() == "inv" || input[0]->s_str() == "Inventory")
 		{
 			player[0]->Inventory();
 		}
 
-		if (input[0]->s_str() == "stats" || input[0]->s_str() == "Stats")
+		else if (input[0]->s_str() == "stats" || input[0]->s_str() == "Stats")
 		{
 			player[0]->Stats();
 		}
 
-		if (input[0]->s_str() == "help" || input[0]->s_str() == "h" || input[0]->s_str() == "Help"){
+		else if (input[0]->s_str() == "help" || input[0]->s_str() == "h" || input[0]->s_str() == "Help"){
 			player[0]->Help();
 		}
 
-		if (input[0]->s_str() == "q" || input[0]->s_str() == "quit" || input[0]->s_str() == "Quit"){
+		else if (input[0]->s_str() == "q" || input[0]->s_str() == "quit" || input[0]->s_str() == "Quit"){
 			return false;
 		}
 
+
+		else {
+			printf("I did not understand what you said. Sorry! Try again.\n");
+		}
 	}
 	if (input.size() == 2){
 		if (input.buffer[0]->s_str() == "look" || input[0]->s_str() == "l" || input[0]->s_str() == "Look"){
@@ -212,7 +216,7 @@ bool World::Command(){
 				player[0]->LookExit(this, south);
 			}
 		}
-		if (input[0]->s_str() == "go" || input[0]->s_str() == "Go"){
+		else if (input[0]->s_str() == "go" || input[0]->s_str() == "Go"){
 			if (input[1]->s_str() == "east" || input[1]->s_str() == "e" || input[1]->s_str() == "East"){
 				player[0]->Move(this, east);
 			}
@@ -226,7 +230,7 @@ bool World::Command(){
 				player[0]->Move(this, south);
 			}
 		}
-		if (input[0]->s_str() == "Open" || input[0]->s_str() == "open"){
+		else if (input[0]->s_str() == "Open" || input[0]->s_str() == "open"){
 			if (input[1]->s_str() == "east" || input[1]->s_str() == "e" || input[1]->s_str() == "East"){
 				player[0]->Open(this, east);
 			}
@@ -240,7 +244,7 @@ bool World::Command(){
 				player[0]->Open(this, south);
 			}
 		}
-		if (input[0]->s_str() == "Close" || input[0]->s_str() == "close"){
+		else if (input[0]->s_str() == "Close" || input[0]->s_str() == "close"){
 			if (input[1]->s_str() == "east" || input[1]->s_str() == "e" || input[1]->s_str() == "East"){
 				player[0]->Close(this, east);
 			}
@@ -255,11 +259,14 @@ bool World::Command(){
 			}
 		}
 
-		if (input[0]->s_str() == "Pick" || input[0]->s_str() == "pick"){
+		else if (input[0]->s_str() == "Pick" || input[0]->s_str() == "pick"){
 			player[0]->Pick(input[1]->s_str());
 		}
-		if (input[0]->s_str() == "Drop" || input[0]->s_str() == "drop"){
+		else if (input[0]->s_str() == "Drop" || input[0]->s_str() == "drop"){
 			player[0]->Drop(input[1]->s_str());
+		}
+		else {
+			printf("I did not understand what you said. Sorry! Try again.\n");
 		}
 	}
 
@@ -267,121 +274,16 @@ bool World::Command(){
 		if ((input[0]->s_str() == "Get" || input[0]->s_str() == "get") && (input[2]->s_str() == "from") && (input[3]->s_str()=="chest")){
 			player[0]->Get(this, input[1]->s_str());
 		}
-		if ((input[0]->s_str() == "Put" || input[0]->s_str() == "put") && (input[2]->s_str() == "in") && (input[3]->s_str() == "chest")){
+		else if ((input[0]->s_str() == "Put" || input[0]->s_str() == "put") && (input[2]->s_str() == "in") && (input[3]->s_str() == "chest")){
 			player[0]->Put(this, input[1]->s_str());
 		}
-	}
-	//LOOK ----
-	/*if (strcmp(first, "look") == 0 || strcmp(first, "Look") == 0){
-		if (strcmp(scnd, "void")==0){
-			player[0]->Look();
+		else {
+			printf("I did not understand what you said. Sorry! Try again.\n");
 		}
-		else if (strcmp(scnd, "east") == 0 || strcmp(scnd, "e") == 0 || strcmp(scnd, "East") == 0){
-			player[0]->LookExit(this, east);
-		}
-		else if (strcmp(scnd, "north") == 0 || strcmp(scnd, "n") == 0 || strcmp(scnd, "North") == 0){
-			player[0]->LookExit(this, north);
-		}
-		else if (strcmp(scnd, "west") == 0 || strcmp(scnd, "w") == 0 || strcmp(scnd, "West") == 0){
-			player[0]->LookExit(this, west);
-		}
-		else if (strcmp(scnd, "south") == 0 || strcmp(scnd, "s") == 0 || strcmp(scnd, "South") == 0){
-			player[0]->LookExit(this, south);
-		}
-	}
-
-	//MOVE ----
-		else if (strcmp(first, "east") == 0 || strcmp(first, "e") == 0|| strcmp(first, "East") == 0){
-			player[0]->Move(this, east);
-		}
-		else if (strcmp(first, "north") == 0 || strcmp(first, "n") == 0 || strcmp(first, "North") == 0){
-			player[0]->Move(this, north);
-		}
-		else if (strcmp(first, "west") == 0 || strcmp(first, "w") == 0 || strcmp(first, "West") == 0){
-			player[0]->Move(this, west);
-		}
-		else if (strcmp(first, "south") == 0 || strcmp(first, "s") == 0 || strcmp(first, "South") == 0){
-			player[0]->Move(this, south);
-		}
-
-
-		else if (strcmp(first, "go") == 0 || strcmp(first, "Go") == 0){
-		if (strcmp(scnd, "void") == 0){
-			printf("Where? ");
-			gets_s(scnd);
-		}
-		if (strcmp(scnd, "east") == 0 || strcmp(scnd, "e") == 0 || strcmp(scnd, "East") == 0){
-			player[0]->Move(this, east);
-		}
-		if (strcmp(scnd, "north") == 0 || strcmp(scnd, "n") == 0 || strcmp(scnd, "North") == 0){
-			player[0]->Move(this, north);
-		}
-		if (strcmp(scnd, "west") == 0 || strcmp(scnd, "w") == 0 || strcmp(scnd, "West") == 0){
-			player[0]->Move(this, west);
-		}
-		if (strcmp(scnd, "south") == 0 || strcmp(scnd, "s") == 0 || strcmp(scnd, "South") == 0){
-			player[0]->Move(this, south);
-		}
-	}
-
-
-	//OPEN/CLOSE  ----
-
-		else if (strcmp(first, "open") == 0 || strcmp(first, "Open") == 0){
-		if (strcmp(scnd, "void") == 0){
-			printf("Which door do you want to open? Give me a direction. ");
-			gets_s(scnd);
-		}
-		if (strcmp(scnd, "east") == 0 || strcmp(scnd, "e") == 0 || strcmp(scnd, "East") == 0){
-			player[0]->Open(this, east);
-		}
-		if (strcmp(scnd, "north") == 0 || strcmp(scnd, "n") == 0 || strcmp(scnd, "North") == 0){
-			player[0]->Open(this, north);
-		}
-		if (strcmp(scnd, "west") == 0 || strcmp(scnd, "w") == 0 || strcmp(scnd, "West") == 0){
-			player[0]->Open(this, west);
-		}
-		if (strcmp(scnd, "south") == 0 || strcmp(scnd, "s") == 0 || strcmp(scnd, "South") == 0){
-			player[0]->Open(this, south);
-		}
-	}
-
-		else if (strcmp(first, "close") == 0 || strcmp(first, "Close") == 0){
-		if (strcmp(scnd, "void") == 0){
-			printf("Which door do you want to close? Give me a direction. ");
-			gets_s(scnd);
-		}
-		if (strcmp(scnd, "east") == 0 || strcmp(scnd, "e") == 0 || strcmp(scnd, "East") == 0){
-			player[0]->Close(this, east);
-		}
-		if (strcmp(scnd, "north") == 0 || strcmp(scnd, "n") == 0 || strcmp(scnd, "North") == 0){
-			player[0]->Close(this, north);
-		}
-		if (strcmp(scnd, "west") == 0 || strcmp(scnd, "w") == 0 || strcmp(scnd, "West") == 0){
-			player[0]->Close(this, west);
-		}
-		if (strcmp(scnd, "south") == 0 || strcmp(scnd, "s") == 0 || strcmp(scnd, "South") == 0){
-			player[0]->Close(this, south);
-		}
-	}
-
-	//HELP ----
-
-		else if (strcmp(first, "help") == 0 || strcmp(first, "Help") == 0){
-			player[0]->Help();
-	}
-
-	//QUIT ----
-
-	else if (strcmp(first, "quit") == 0 || strcmp(first, "q") == 0 || strcmp(first, "Quit") == 0){
-		return false;
 	}
 
 	//WRONG COMMAND ---- 
 
-	else {
-		printf("I did not understand what you said. Sorry! Try again.\n");
-	}*/
 	player[0]->antigo = true;
 	return true;
 }

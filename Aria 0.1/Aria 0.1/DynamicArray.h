@@ -47,7 +47,9 @@ public:
 		if(num_elements == max_capacity){
 			max_capacity *= 2;
 			Vector<TYPE> temp(this);
-			delete[] buffer;
+			if (num_elements > 0){
+				delete[] buffer;
+			}
 			buffer = new TYPE[max_capacity];
 			for (unsigned int i = 0; i < num_elements; i++)
 			{
