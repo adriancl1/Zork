@@ -71,6 +71,7 @@ void World::CreateWorld(){
 	Item* Chair = new Item("chair", "Seems like it would resist my weight if I needed to stand on it...", rooms[1]);
 	Item* Knife = new Item("knife", "A knife. Maybe I can use it to scare the man outside.", rooms[2]);
 	Item* Diary = new Item("diary", "Aria's diary. Inside are all her thoughts.", rooms[10]);
+	Item* Chest = new Item("chest", "A chest where you can store stuff in!", CHEST, rooms[1]);
 
 	items.push_back(Rug);
 	items.push_back(OldKey);
@@ -84,19 +85,22 @@ void World::CreateWorld(){
 	items.push_back(Chair);
 	items.push_back(Knife);
 	items.push_back(Diary);
+	items.push_back(Chest);
 
-	rooms[0]->my_entities.push_back(items[0]);
-	rooms[0]->my_entities.push_back(items[1]);
-	rooms[6]->my_entities.push_back(items[2]);
-	rooms[7]->my_entities.push_back(items[3]);
-	rooms[5]->my_entities.push_back(items[4]);
-	rooms[3]->my_entities.push_back(items[5]);
-	rooms[3]->my_entities.push_back(items[6]);
-	rooms[1]->my_entities.push_back(items[8]);
-	rooms[2]->my_entities.push_back(items[7]);
-	rooms[2]->my_entities.push_back(DrawerKey);
-	rooms[2]->my_entities.push_back(items[9]);
-	rooms[10]->my_entities.push_back(items[10]);
+
+	rooms[0]->my_entities.push_back(items[0]);//rug
+	rooms[0]->my_entities.push_back(items[1]);//oldkey
+	rooms[6]->my_entities.push_back(items[2]);//shears
+	rooms[7]->my_entities.push_back(items[3]);//brick
+	rooms[5]->my_entities.push_back(items[4]);//ariakey
+	rooms[3]->my_entities.push_back(items[5]);//rope
+	rooms[3]->my_entities.push_back(items[6]);//candle
+	rooms[1]->my_entities.push_back(items[9]);//drawerkey
+	rooms[2]->my_entities.push_back(items[7]);//matches
+	rooms[2]->my_entities.push_back(items[8]);//chair
+	rooms[2]->my_entities.push_back(items[10]);//knife
+	rooms[10]->my_entities.push_back(items[11]);//diary
+	rooms[1]->my_entities.push_back(items[12]);//chest
 
 	//EXITS  ----
 	exits.push_back(new Exit("House Hall", "North there's the house door", false, rooms[0], rooms[1], north));
@@ -133,10 +137,12 @@ bool World::Command(){
 	char choice[50];
 	gets_s(choice);
 	String beforetoken(choice);
+
 	if (beforetoken == "\0"){
 		printf("Type something!\n");
 		return true;
 	}
+
 	Vector<String*> input;
 	input = beforetoken.Tokenize();
 	input.shrink_to_fit();
@@ -157,7 +163,7 @@ bool World::Command(){
 			player[0]->Move(this, west);
 		}
 		if (input[0]->s_str() == "south" || input[0]->s_str() == "s" || input[0]->s_str() == "South"){
-			player[0]->Move(this, east);
+			player[0]->Move(this, south);
 		}
 
 		if (input[0]->s_str() == "open" || input[0]->s_str() == "Open"){
@@ -176,6 +182,12 @@ bool World::Command(){
 		{
 			player[0]->Inventory();
 		}
+
+		if (input[0]->s_str() == "stats" || input[0]->s_str() == "Stats")
+		{
+			player[0]->Stats();
+		}
+
 		if (input[0]->s_str() == "help" || input[0]->s_str() == "h" || input[0]->s_str() == "Help"){
 			player[0]->Help();
 		}
@@ -197,7 +209,7 @@ bool World::Command(){
 				player[0]->LookExit(this, west);
 			}
 			if (input[1]->s_str() == "south" || input[1]->s_str() == "s" || input[1]->s_str() == "South"){
-				player[0]->LookExit(this, east);
+				player[0]->LookExit(this, south);
 			}
 		}
 		if (input[0]->s_str() == "go" || input[0]->s_str() == "Go"){
@@ -211,7 +223,7 @@ bool World::Command(){
 				player[0]->Move(this, west);
 			}
 			if (input[1]->s_str() == "south" || input[1]->s_str() == "s" || input[1]->s_str() == "South"){
-				player[0]->Move(this, east);
+				player[0]->Move(this, south);
 			}
 		}
 		if (input[0]->s_str() == "Open" || input[0]->s_str() == "open"){
@@ -225,7 +237,7 @@ bool World::Command(){
 				player[0]->Open(this, west);
 			}
 			if (input[1]->s_str() == "south" || input[1]->s_str() == "s" || input[1]->s_str() == "South"){
-				player[0]->Open(this, east);
+				player[0]->Open(this, south);
 			}
 		}
 		if (input[0]->s_str() == "Close" || input[0]->s_str() == "close"){
@@ -239,7 +251,7 @@ bool World::Command(){
 				player[0]->Close(this, west);
 			}
 			if (input[1]->s_str() == "south" || input[1]->s_str() == "s" || input[1]->s_str() == "South"){
-				player[0]->Close(this, east);
+				player[0]->Close(this, south);
 			}
 		}
 

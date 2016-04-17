@@ -9,6 +9,7 @@ protected:
 	Entity* container;
 public:
 	Item(const char* name, const char* description, Entity* container);
+	Item(const char* name, const char* description, type my_type, Entity* container);
 	~Item();
 	
 };

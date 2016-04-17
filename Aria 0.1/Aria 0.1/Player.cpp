@@ -122,16 +122,29 @@ void Player::Inventory()const
 	}
 	for (unsigned int i = 0; my_entities.size() > i; i++)
 	{
-		printf("%s\n", this->my_entities[i]->get_name());
+		printf("%s\n", my_entities[i]->get_name());
 	}
 }
 
+void Player::Stats()
+{
+	for (unsigned int i = 0; i < my_entities.size(); i++){
+		if (my_entities[i]->name == "diary"){
+			knowledge += 3;
+		}
+		if (my_entities[i]->name == "knife"){
+			attack += 2;
+		}
+	}
+	printf("Attack: %i\nKnowledge:%i", attack, knowledge);
+	knowledge = 0, attack = 0;
+}
 void Player::Pick(String item)
 {
-	if (my_entities.size() < 1){
+	if (my_entities.size() < 4){//inventory size
 		for (unsigned int i = 0; location->my_entities.size() > i; i++)
 		{
-			if (item == location->my_entities[i]->get_name()){
+			if (item == location->my_entities[i]->get_name() && location->my_entities[i]->my_type == ITEM){
 				my_entities.push_back(location->my_entities[i]);
 				printf("You picked up a %s", location->my_entities[i]->get_name());
 				location->my_entities.Remove(i);

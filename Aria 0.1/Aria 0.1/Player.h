@@ -14,6 +14,7 @@ class Player : public Entity
 public:
 	Room* location;
 	bool antigo = true;
+	unsigned int knowledge = 0, attack = 0;
 public:
 	void Look()const;
 	void LookExit(const World* world, const dir tolook)const;
@@ -21,6 +22,7 @@ public:
 	void Close(World* world, const dir close);
 	void Open(World* world, const dir open);
 	void Inventory()const;
+	void Stats();
 	void Pick(String item);
 	void Drop(String item);
 	void Help()const;

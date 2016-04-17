@@ -4,7 +4,7 @@
 #include "String.h"
 #include "DynamicArray.h"
 
-enum type{PLAYER, ROOM, ITEM, EXIT};
+enum type{PLAYER, ROOM, ITEM, EXIT, CHEST};
 
 class Entity
 {
@@ -17,8 +17,6 @@ public:
 public:
 	Entity();
 	Entity(const char* name, const char* description, type mytype);
-	virtual void Insert(Entity* container);
-	virtual void Remove(Entity*);
 	virtual void Look()const;
 	char* get_name()const;
 	char* get_description()const;
