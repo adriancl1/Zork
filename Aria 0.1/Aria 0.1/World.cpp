@@ -265,6 +265,15 @@ bool World::Command(){
 		else if (input[0]->s_str() == "Drop" || input[0]->s_str() == "drop"){
 			player[0]->Drop(input[1]->s_str());
 		}
+
+		else if (input[0]->s_str() == "Equip" || input[0]->s_str() == "equip")
+		{
+			player[0]->Equip(input[1]->s_str());
+		}
+		else if (input[0]->s_str() == "Unequip" || input[0]->s_str() == "unequip")
+		{
+			player[0]->Unequip(input[1]->s_str());
+		}
 		else {
 			printf("I did not understand what you said. Sorry! Try again.\n");
 		}

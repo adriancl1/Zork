@@ -15,6 +15,7 @@ public:
 	Room* location;
 	bool antigo = true;
 	unsigned int knowledge = 0, attack = 0;
+	Vector<Entity*> gear;
 public:
 	void Look()const;
 	void LookExit(const World* world, const dir tolook)const;
@@ -27,6 +28,8 @@ public:
 	void Drop(String item);
 	void Get(World* world, String item);
 	void Put(World* world, String item);
+	void Equip(String item);
+	void Unequip(String item);
 	void Help()const;
 	Player(const char* name, const char* description, Room* room);
 	~Player();

@@ -128,11 +128,11 @@ void Player::Inventory()const
 
 void Player::Stats()
 {
-	for (unsigned int i = 0; i < my_entities.size(); i++){
-		if (my_entities[i]->name == "diary"){
+	for (unsigned int i = 0; i < gear.size(); i++){
+		if (gear[i]->name == "diary"){
 			knowledge += 3;
 		}
-		if (my_entities[i]->name == "knife"){
+		if (gear[i]->name == "knife"){
 			attack += 2;
 		}
 	}
@@ -223,7 +223,44 @@ void Player::Put(World* world, String item)
 			printf("You don't have any items!");
 		}
 	}
-	
+}
+
+void Player::Equip(String item)
+{
+	if (my_entities.size() > 0){
+		for (unsigned int i = 0; my_entities.size() > i; i++)
+		{
+			if (item == my_entities[i]->get_name() && ((item== "knife") || item=="diary")){
+				gear.push_back(my_entities[i]);
+				printf("You equip the %s.", my_entities[i]->get_name());
+				my_entities.Remove(i);
+				return;
+			}
+		}
+		printf("You don't have that item.");
+	}
+	else{
+		printf("You don't have any items!");
+	}
+}
+
+void Player::Unequip(String item)
+{
+	if (gear.size() > 0){
+		for (unsigned int i = 0; gear.size() > i; i++)
+		{
+			if (item == gear[i]->get_name() && ((item == "knife") || item == "diary")){
+				my_entities.push_back(gear[i]);
+				printf("You unequip the %s.", gear[i]->get_name());
+				gear.Remove(i);
+				return;
+			}
+		}
+		printf("You don't have that item equiped.");
+	}
+	else{
+		printf("You don't have any items equiped!");
+	}
 }
 
 
