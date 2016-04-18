@@ -136,13 +136,13 @@ void Player::Stats()
 			attack += 2;
 		}
 	}
-	printf("Attack: %i\nKnowledge:%i", attack, knowledge);
+	printf("Attack: %i\nKnowledge:%i\n", attack, knowledge);
 	knowledge = 0, attack = 0;
 }
 void Player::Pick(String item)
 {
 	if (item == "chest"){
-		printf("You can't pick up the chest!");
+		printf("You can't pick up the chest!\n");
 	}
 	else if (my_entities.size() < 4){//inventory size
 		for (unsigned int i = 0; location->my_entities.size() > i; i++)
@@ -154,10 +154,10 @@ void Player::Pick(String item)
 				return;
 			}
 		}
-		printf("There's no such thing in here!");
+		printf("There's no such thing in here!\n");
 	}
 	else{
-		printf("You're already carrying too much stuff.");
+		printf("You're already carrying too much stuff.\n");
 	}
 }
 
@@ -169,15 +169,15 @@ void Player::Drop(String item)
 		{
 			if (item == my_entities[i]->get_name()){
 				location->my_entities.push_back(my_entities[i]);
-				printf("You droped the %s", my_entities[i]->get_name());
+				printf("You droped the %s\n", my_entities[i]->get_name());
 				my_entities.Remove(i);
 				return;
 			}
 		}
-		printf("You don't have that item.");
+		printf("You don't have that item.\n");
 	}
 	else{
-		printf("You don't have any items!");
+		printf("You don't have any items!\n");
 	}
 }
 
@@ -189,15 +189,15 @@ void Player::Get(World* world, String item)
 			{
 				if (item == world->items[12]->my_entities[i]->get_name() && world->items[12]->my_entities[i]->my_type == ITEM){
 					my_entities.push_back(world->items[12]->my_entities[i]);
-					printf("You got a %s from the chest.", world->items[12]->my_entities[i]->get_name());
+					printf("You got a %s from the chest.\n", world->items[12]->my_entities[i]->get_name());
 					world->items[12]->my_entities.Remove(i);
 					return;
 				}
 			}
-			printf("There's no such thing in here!");
+			printf("There's no such thing in here!\n");
 		}
 		else{
-			printf("You're already carrying too much stuff.");
+			printf("You're already carrying too much stuff.\n");
 		}
 	}
 
@@ -212,15 +212,15 @@ void Player::Put(World* world, String item)
 			{
 				if (item == my_entities[i]->get_name()){
 					world->items[12]->my_entities.push_back(my_entities[i]);
-					printf("You put the %s into the chest.", my_entities[i]->get_name());
+					printf("You put the %s into the chest.\n", my_entities[i]->get_name());
 					my_entities.Remove(i);
 					return;
 				}
 			}
-			printf("You don't have that item.");
+			printf("You don't have that item.\n");
 		}
 		else{
-			printf("You don't have any items!");
+			printf("You don't have any items!\n");
 		}
 	}
 }
@@ -232,15 +232,15 @@ void Player::Equip(String item)
 		{
 			if (item == my_entities[i]->get_name() && ((item== "knife") || item=="diary")){
 				gear.push_back(my_entities[i]);
-				printf("You equip the %s.", my_entities[i]->get_name());
+				printf("You equip the %s.\n", my_entities[i]->get_name());
 				my_entities.Remove(i);
 				return;
 			}
 		}
-		printf("You don't have that item.");
+		printf("You can't equip that!\n");
 	}
 	else{
-		printf("You don't have any items!");
+		printf("You don't have any items!\n");
 	}
 }
 
@@ -251,19 +251,19 @@ void Player::Unequip(String item)
 		{
 			if (item == gear[i]->get_name() && ((item == "knife") || item == "diary")){
 				my_entities.push_back(gear[i]);
-				printf("You unequip the %s.", gear[i]->get_name());
+				printf("You unequip the %s.\n", gear[i]->get_name());
 				gear.Remove(i);
 				return;
 			}
 		}
-		printf("You don't have that item equiped.");
+		printf("You don't have that item equiped.\n");
 	}
 	else{
-		printf("You don't have any items equiped!");
+		printf("You don't have any items equiped!\n");
 	}
 }
 
 
 void Player::Help()const{
-	printf("You can move through the rooms with the keys n, s, e, w, or with the complete words north, south, east, west. You can also use go 'direction'. If you wish to inspect the room, use the 'look' command, you can also look out to wherever direction you want to head next before going in!All rooms can be opened / closed with the open / close 'direction' command(obviously, it'll only work if there's a room that way!). You can quit the game by hitting 'q' or 'quit'.\n");
+	printf("You can move through the rooms with the keys n, s, e, w, or with the complete words north, south, east, west. You can also use go 'direction'. If you wish to inspect the room, use the 'look' command, you can also look out to wherever direction you want to head next before going in! Items on the room will only appear when looking, not when moving into a new room so be sure to use the look command. All rooms can be opened / closed with the open / close 'direction' command(obviously, it'll only work if there's a room that way!). You can pick/drop items from a room, and also equip them to raise your attack or knowledge stats! You can check those stats typing 'stats', and check the items you're currrently holding by pressing 'inventory' or simply 'i'. If you're running out of inventory space, there's a chest in the hall entrance where you can store your items and come back for them later. Use the 'Put xxx in chest' or 'Get xxx from chest' to do so. You can quit the game by hitting 'q' or 'quit'.\n");
 }

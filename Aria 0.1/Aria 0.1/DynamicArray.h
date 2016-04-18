@@ -152,6 +152,10 @@ public:
 		this->shrink_to_fit();
 	}
 
+	void Clear(){
+		num_elements = 0;
+	}
+
 
 public:
 	TYPE* buffer;

@@ -16,7 +16,18 @@ World::World()
 }
 
 World::~World(){
-	
+	for (unsigned int i=0; i < rooms.size(); i++){
+		delete rooms[i];
+	}
+	for (unsigned int i = 0; i < exits.size(); i++){
+		delete exits[i];
+	}
+	for (unsigned int i = 0; i < items.size(); i++){
+		delete items[i];
+	}
+	rooms.Clear();
+	exits.Clear();
+	items.Clear();
 }
 
 void World::CreateWorld(){
@@ -174,6 +185,30 @@ bool World::Command(){
 
 		else if (input[0]->s_str() == "close" || input[0]->s_str() == "Close"){
 			printf("Which direction? ");
+			gets_s(choice);
+			input.push_back(new String(choice));
+		}
+
+		else if (input[0]->s_str() == "Pick" || input[0]->s_str() == "pick"){
+			printf("What do you want to pick? ");
+			gets_s(choice);
+			input.push_back(new String(choice));
+		}
+
+		else if (input[0]->s_str() == "Drop" || input[0]->s_str() == "drop"){
+			printf("What do you want to drop? ");
+			gets_s(choice);
+			input.push_back(new String(choice));
+		}
+
+		else if (input[0]->s_str() == "Equip" || input[0]->s_str() == "equip"){
+			printf("What do you want to equip? ");
+			gets_s(choice);
+			input.push_back(new String(choice));
+		}
+
+		else if (input[0]->s_str() == "Unequip" || input[0]->s_str() == "unequip"){
+			printf("What do you want to unequip? ");
 			gets_s(choice);
 			input.push_back(new String(choice));
 		}
