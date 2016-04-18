@@ -1,8 +1,8 @@
-﻿# Aria v_0.1
+﻿# Aria v_0.3
 
 
 
-Welcome to Aria! This is just an early alpha a of Zork-type game where you'll find out about a tragic family story. Will you be able to commit murder for the ones you love?
+Welcome to Aria! This is just an alpha a of Zork-type game where you'll find out about a tragic family story. Will you be able to commit murder for the ones you love?
 
 
 
