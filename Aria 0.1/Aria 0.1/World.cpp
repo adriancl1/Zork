@@ -314,6 +314,15 @@ bool World::Command(){
 		}
 	}
 
+	if (input.size() == 3)
+	{
+		if((input[0]->s_str() == "Look" || input[0]->s_str() == "look") && (input[1]->s_str() == "at")){
+			player[0]->LookAt(input[2]->s_str());
+		}
+		else {
+			printf("I did not understand what you said. Sorry! Try again.\n");
+		}
+	}
 	if (input.size() == 4){
 		if ((input[0]->s_str() == "Get" || input[0]->s_str() == "get") && (input[2]->s_str() == "from") && (input[3]->s_str()=="chest")){
 			player[0]->Get(this, input[1]->s_str());
@@ -325,8 +334,6 @@ bool World::Command(){
 			printf("I did not understand what you said. Sorry! Try again.\n");
 		}
 	}
-
-	//WRONG COMMAND ---- 
 
 	player[0]->antigo = true;
 	return true;
