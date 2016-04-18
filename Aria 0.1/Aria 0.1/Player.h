@@ -19,6 +19,7 @@ public:
 public:
 	void Look()const;
 	void LookExit(const World* world, const dir tolook)const;
+	void LookAt(String item);
 	void Move(const World* world, const dir go);
 	void Close(World* world, const dir close);
 	void Open(World* world, const dir open);
