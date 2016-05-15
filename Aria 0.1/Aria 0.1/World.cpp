@@ -7,6 +7,7 @@
 #include "Exit.h"
 #include "Player.h"
 #include "World.h"
+#include "NPC.h"
 
 #define _CRT_SECURE_NO_WARNINGS
 
@@ -140,6 +141,8 @@ void World::CreateWorld(){
 
 	//PLAYER ----
 	player.push_back(new Player("Kevin", "I am Groot", rooms[0]));
+
+	npcs.push_back(new NPC("Raccoon", "A wild raccoon fascinated by your things", ENEMY, rooms[1]));
 }
 
 bool World::Command(){
@@ -336,5 +339,7 @@ bool World::Command(){
 	}
 
 	player[0]->antigo = true;
+	npcs[0]->Update(this);
+	npcs[0]->antigo = true;
 	return true;
 }

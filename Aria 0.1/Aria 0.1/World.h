@@ -7,6 +7,7 @@ class Room;
 class Exit;
 class Player;
 class Item;
+class NPC;
 
 
 #define NUM_ROOMS 11
@@ -20,6 +21,7 @@ public:
 	Vector<Room*> rooms;
 	Vector<Exit*> exits;
 	Vector<Player*> player;
+	Vector<NPC*> npcs;
 public:
 	World();
 	~World();
