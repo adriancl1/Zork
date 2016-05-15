@@ -3,16 +3,15 @@
 
 
 #include "Exit.h"
-#include "Entity.h"
+#include "Creature.h"
 
 class Room;
 
 class World;
 
-class Player : public Entity
+class Player : public Creature
 {
 public:
-	Room* location;
 	bool antigo = true;
 	unsigned int knowledge = 0, attack = 0;
 	Vector<Entity*> gear;

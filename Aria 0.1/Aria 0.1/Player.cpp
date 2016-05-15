@@ -7,8 +7,7 @@
 #include "DynamicArray.h"
 #include "Room.h"
 
-Player::Player(const char* name, const char* description, Room* room) : Entity(name, description, PLAYER), location(room)
-{
+Player::Player(const char* name, const char* description, Room* room) : Creature(name, description, PLAYER, room){
 	
 }
 

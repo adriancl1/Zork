@@ -4,7 +4,7 @@
 #include "String.h"
 #include "DynamicArray.h"
 
-enum type{PLAYER, ROOM, ITEM, EXIT, CHEST};
+enum type{PLAYER, FRIENDLY, ENEMY, ROOM, ITEM, EXIT, CHEST};//friendly and enemy types are for npcs
 
 class Entity
 {
