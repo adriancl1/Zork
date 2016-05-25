@@ -30,6 +30,11 @@ void NPC::Update(const World* world){
 			Move(world, dir(rand()%4));
 			return;
 		}
+		if (my_entities.size() == 0 && location!=world->rooms[1]){
+			srand(time(NULL));
+			Move(world, dir(rand() % 4));
+			return;
+		}
 	}
 	if (name == "Aria"){
 		return;

@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <conio.h>
 
 #include "Room.h"
 #include "Item.h"
@@ -8,6 +9,7 @@
 #include "Player.h"
 #include "World.h"
 #include "NPC.h"
+
 
 #define _CRT_SECURE_NO_WARNINGS
 
@@ -142,204 +144,244 @@ void World::CreateWorld(){
 	//PLAYER ----
 	player.push_back(new Player("Kevin", "I am Groot", rooms[0]));
 
-	npcs.push_back(new NPC("Raccoon", "A wild raccoon fascinated by your things", ENEMY, rooms[1]));
+	npcs.push_back(new NPC("Raccoon", "A wild raccoon fascinated by your things", ENEMY, rooms[0]));
 }
 
 bool World::Command(){
+	unsigned int currenttime = 0;
+	unsigned int initialtime = 0;
+	unsigned int charcommandnum = 0;
 	printf("\n");
 	fflush(stdin);
 	char choice[50];
-	gets_s(choice);
-	String beforetoken(choice);
-
-	if (beforetoken == "\0"){
-		printf("Type something!\n");
-		return true;
-	}
-
-	Vector<String*> input;
-	input = beforetoken.Tokenize();
-	input.shrink_to_fit();
-
-
-	if (input.size() == 1){
-		if (input.buffer[0]->s_str() == "look" || input[0]->s_str() == "l" || input[0]->s_str() == "Look"){
-			player[0]->Look();
-		}
-
-		else if (input[0]->s_str() == "east" || input[0]->s_str() == "e" || input[0]->s_str() == "East"){
-			player[0]->Move(this, east);
-		}
-		else if (input[0]->s_str() == "north" || input[0]->s_str() == "n" || input[0]->s_str() == "North"){
-			player[0]->Move(this, north);
-		}
-		else if (input[0]->s_str() == "west" || input[0]->s_str() == "w" || input[0]->s_str() == "West"){
-			player[0]->Move(this, west);
-		}
-		else if (input[0]->s_str() == "south" || input[0]->s_str() == "s" || input[0]->s_str() == "South"){
-			player[0]->Move(this, south);
-		}
-
-		else if (input[0]->s_str() == "open" || input[0]->s_str() == "Open"){
-			printf("Which direction? ");
-			gets_s(choice);
-			input.push_back(new String(choice));
-		}
-
-		else if (input[0]->s_str() == "close" || input[0]->s_str() == "Close"){
-			printf("Which direction? ");
-			gets_s(choice);
-			input.push_back(new String(choice));
-		}
-
-		else if (input[0]->s_str() == "Pick" || input[0]->s_str() == "pick"){
-			printf("What do you want to pick? ");
-			gets_s(choice);
-			input.push_back(new String(choice));
-		}
-
-		else if (input[0]->s_str() == "Drop" || input[0]->s_str() == "drop"){
-			printf("What do you want to drop? ");
-			gets_s(choice);
-			input.push_back(new String(choice));
-		}
-
-		else if (input[0]->s_str() == "Equip" || input[0]->s_str() == "equip"){
-			printf("What do you want to equip? ");
-			gets_s(choice);
-			input.push_back(new String(choice));
-		}
-
-		else if (input[0]->s_str() == "Unequip" || input[0]->s_str() == "unequip"){
-			printf("What do you want to unequip? ");
-			gets_s(choice);
-			input.push_back(new String(choice));
-		}
-
-		else if (input[0]->s_str() == "inventory" || input[0]->s_str() == "i" || input[0]->s_str() == "inv" || input[0]->s_str() == "Inventory")
+	String beforetoken;
+	while (1){
+		currenttime = GetTickCount();
+		if (_kbhit())
 		{
-			player[0]->Inventory();
+			if (charcommandnum < (50 - 2)){
+				choice[charcommandnum] = _getch();
+				choice[charcommandnum + 1] = '\0';
+				printf("String: %s\n", choice);//va imprimint l'estat de command
+				charcommandnum++;
+				if (choice[charcommandnum - 1] == '\b' && charcommandnum>1){//used to delete characters with backspace
+					charcommandnum -= 2;
+					choice[charcommandnum] = '\0';
+
+					printf("Your command is: %s\n", choice);
+				}
+				if (choice[charcommandnum - 1] == '\r'){//quant apretes enter, imprimeix el command i l'esborra
+					printf("Your command is: %s\n", choice);
+					choice[charcommandnum-1] = '\0';
+					charcommandnum = 0;
+					beforetoken = choice;
+				}
+			}
+			else{
+				choice[50 - 1] = '\0';
+			}
 		}
+		
+		currenttime = GetTickCount();
+		if (beforetoken.c_str() != nullptr){
+			if (beforetoken == "\0"){
+				printf("Type something!\n");
+				return true;
+			}
 
-		else if (input[0]->s_str() == "stats" || input[0]->s_str() == "Stats")
-		{
-			player[0]->Stats();
+			Vector<String*> input;
+			input = beforetoken.Tokenize();
+			input.shrink_to_fit();
+
+
+			if (input.size() == 1){
+				if (input.buffer[0]->s_str() == "look" || input[0]->s_str() == "l" || input[0]->s_str() == "Look"){
+					player[0]->Look();
+				}
+
+				else if (input[0]->s_str() == "east" || input[0]->s_str() == "e" || input[0]->s_str() == "East"){
+					player[0]->Move(this, east);
+				}
+				else if (input[0]->s_str() == "north" || input[0]->s_str() == "n" || input[0]->s_str() == "North"){
+					player[0]->Move(this, north);
+					
+				}
+				else if (input[0]->s_str() == "west" || input[0]->s_str() == "w" || input[0]->s_str() == "West"){
+					player[0]->Move(this, west);
+				}
+				else if (input[0]->s_str() == "south" || input[0]->s_str() == "s" || input[0]->s_str() == "South"){
+					player[0]->Move(this, south);
+				}
+
+				else if (input[0]->s_str() == "open" || input[0]->s_str() == "Open"){
+					printf("Which direction? ");
+					gets_s(choice);
+					input.push_back(new String(choice));
+				}
+
+				else if (input[0]->s_str() == "close" || input[0]->s_str() == "Close"){
+					printf("Which direction? ");
+					gets_s(choice);
+					input.push_back(new String(choice));
+				}
+
+				else if (input[0]->s_str() == "Pick" || input[0]->s_str() == "pick"){
+					printf("What do you want to pick? ");
+					gets_s(choice);
+					input.push_back(new String(choice));
+				}
+
+				else if (input[0]->s_str() == "Drop" || input[0]->s_str() == "drop"){
+					printf("What do you want to drop? ");
+					gets_s(choice);
+					input.push_back(new String(choice));
+				}
+
+				else if (input[0]->s_str() == "Equip" || input[0]->s_str() == "equip"){
+					printf("What do you want to equip? ");
+					gets_s(choice);
+					input.push_back(new String(choice));
+				}
+
+				else if (input[0]->s_str() == "Unequip" || input[0]->s_str() == "unequip"){
+					printf("What do you want to unequip? ");
+					gets_s(choice);
+					input.push_back(new String(choice));
+				}
+
+				else if (input[0]->s_str() == "inventory" || input[0]->s_str() == "i" || input[0]->s_str() == "inv" || input[0]->s_str() == "Inventory")
+				{
+					player[0]->Inventory();
+				}
+
+				else if (input[0]->s_str() == "stats" || input[0]->s_str() == "Stats")
+				{
+					player[0]->Stats();
+				}
+
+				else if (input[0]->s_str() == "help" || input[0]->s_str() == "h" || input[0]->s_str() == "Help"){
+					player[0]->Help();
+				}
+
+				else if (input[0]->s_str() == "q" || input[0]->s_str() == "quit" || input[0]->s_str() == "Quit"){
+					return false;
+				}
+
+
+				else {
+					printf("I did not understand what you said. Sorry! Try again.\n");
+				}
+				return true;
+			}
+			if (input.size() == 2){
+				if (input.buffer[0]->s_str() == "look" || input[0]->s_str() == "l" || input[0]->s_str() == "Look"){
+					if (input[1]->s_str() == "east" || input[1]->s_str() == "e" || input[1]->s_str() == "East"){
+						player[0]->LookExit(this, east);
+					}
+					if (input[1]->s_str() == "north" || input[1]->s_str() == "n" || input[1]->s_str() == "North"){
+						player[0]->LookExit(this, north);
+					}
+					if (input[1]->s_str() == "west" || input[1]->s_str() == "w" || input[1]->s_str() == "West"){
+						player[0]->LookExit(this, west);
+					}
+					if (input[1]->s_str() == "south" || input[1]->s_str() == "s" || input[1]->s_str() == "South"){
+						player[0]->LookExit(this, south);
+					}
+				}
+				else if (input[0]->s_str() == "go" || input[0]->s_str() == "Go"){
+					if (input[1]->s_str() == "east" || input[1]->s_str() == "e" || input[1]->s_str() == "East"){
+						player[0]->Move(this, east);
+					}
+					if (input[1]->s_str() == "north" || input[1]->s_str() == "n" || input[1]->s_str() == "North"){
+						player[0]->Move(this, north);
+					}
+					if (input[1]->s_str() == "west" || input[1]->s_str() == "w" || input[1]->s_str() == "West"){
+						player[0]->Move(this, west);
+					}
+					if (input[1]->s_str() == "south" || input[1]->s_str() == "s" || input[1]->s_str() == "South"){
+						player[0]->Move(this, south);
+					}
+				}
+				else if (input[0]->s_str() == "Open" || input[0]->s_str() == "open"){
+					if (input[1]->s_str() == "east" || input[1]->s_str() == "e" || input[1]->s_str() == "East"){
+						player[0]->Open(this, east);
+					}
+					if (input[1]->s_str() == "north" || input[1]->s_str() == "n" || input[1]->s_str() == "North"){
+						player[0]->Open(this, north);
+					}
+					if (input[1]->s_str() == "west" || input[1]->s_str() == "w" || input[1]->s_str() == "West"){
+						player[0]->Open(this, west);
+					}
+					if (input[1]->s_str() == "south" || input[1]->s_str() == "s" || input[1]->s_str() == "South"){
+						player[0]->Open(this, south);
+					}
+				}
+				else if (input[0]->s_str() == "Close" || input[0]->s_str() == "close"){
+					if (input[1]->s_str() == "east" || input[1]->s_str() == "e" || input[1]->s_str() == "East"){
+						player[0]->Close(this, east);
+					}
+					if (input[1]->s_str() == "north" || input[1]->s_str() == "n" || input[1]->s_str() == "North"){
+						player[0]->Close(this, north);
+					}
+					if (input[1]->s_str() == "west" || input[1]->s_str() == "w" || input[1]->s_str() == "West"){
+						player[0]->Close(this, west);
+					}
+					if (input[1]->s_str() == "south" || input[1]->s_str() == "s" || input[1]->s_str() == "South"){
+						player[0]->Close(this, south);
+					}
+				}
+
+				else if (input[0]->s_str() == "Pick" || input[0]->s_str() == "pick"){
+					player[0]->Pick(input[1]->s_str());
+				}
+				else if (input[0]->s_str() == "Drop" || input[0]->s_str() == "drop"){
+					player[0]->Drop(input[1]->s_str());
+				}
+
+				else if (input[0]->s_str() == "Equip" || input[0]->s_str() == "equip")
+				{
+					player[0]->Equip(input[1]->s_str());
+				}
+				else if (input[0]->s_str() == "Unequip" || input[0]->s_str() == "unequip")
+				{
+					player[0]->Unequip(input[1]->s_str());
+				}
+				else {
+					printf("I did not understand what you said. Sorry! Try again.\n");
+				}
+				return true;
+			}
+
+			if (input.size() == 3)
+			{
+				if ((input[0]->s_str() == "Look" || input[0]->s_str() == "look") && (input[1]->s_str() == "at")){
+					player[0]->LookAt(input[2]->s_str());
+				}
+				else {
+					printf("I did not understand what you said. Sorry! Try again.\n");
+				}
+				return true;
+			}
+			if (input.size() == 4){
+				if ((input[0]->s_str() == "Get" || input[0]->s_str() == "get") && (input[2]->s_str() == "from") && (input[3]->s_str() == "chest")){
+					player[0]->Get(this, input[1]->s_str());
+				}
+				else if ((input[0]->s_str() == "Put" || input[0]->s_str() == "put") && (input[2]->s_str() == "in") && (input[3]->s_str() == "chest")){
+					player[0]->Put(this, input[1]->s_str());
+				}
+				else {
+					printf("I did not understand what you said. Sorry! Try again.\n");
+				}
+				return true;
+			}
 		}
-
-		else if (input[0]->s_str() == "help" || input[0]->s_str() == "h" || input[0]->s_str() == "Help"){
-			player[0]->Help();
-		}
-
-		else if (input[0]->s_str() == "q" || input[0]->s_str() == "quit" || input[0]->s_str() == "Quit"){
-			return false;
-		}
-
-
-		else {
-			printf("I did not understand what you said. Sorry! Try again.\n");
+		player[0]->antigo = true;
+		if (currenttime >= (initialtime + 5000)){
+			printf("Hy.\n");
+			npcs[0]->Update(this);
+			npcs[0]->antigo = true;
+			initialtime = currenttime;
 		}
 	}
-	if (input.size() == 2){
-		if (input.buffer[0]->s_str() == "look" || input[0]->s_str() == "l" || input[0]->s_str() == "Look"){
-			if (input[1]->s_str() == "east" || input[1]->s_str() == "e" || input[1]->s_str() == "East"){
-				player[0]->LookExit(this, east);
-			}
-			if (input[1]->s_str() == "north" || input[1]->s_str() == "n" || input[1]->s_str() == "North"){
-				player[0]->LookExit(this, north);
-			}
-			if (input[1]->s_str() == "west" || input[1]->s_str() == "w" || input[1]->s_str() == "West"){
-				player[0]->LookExit(this, west);
-			}
-			if (input[1]->s_str() == "south" || input[1]->s_str() == "s" || input[1]->s_str() == "South"){
-				player[0]->LookExit(this, south);
-			}
-		}
-		else if (input[0]->s_str() == "go" || input[0]->s_str() == "Go"){
-			if (input[1]->s_str() == "east" || input[1]->s_str() == "e" || input[1]->s_str() == "East"){
-				player[0]->Move(this, east);
-			}
-			if (input[1]->s_str() == "north" || input[1]->s_str() == "n" || input[1]->s_str() == "North"){
-				player[0]->Move(this, north);
-			}
-			if (input[1]->s_str() == "west" || input[1]->s_str() == "w" || input[1]->s_str() == "West"){
-				player[0]->Move(this, west);
-			}
-			if (input[1]->s_str() == "south" || input[1]->s_str() == "s" || input[1]->s_str() == "South"){
-				player[0]->Move(this, south);
-			}
-		}
-		else if (input[0]->s_str() == "Open" || input[0]->s_str() == "open"){
-			if (input[1]->s_str() == "east" || input[1]->s_str() == "e" || input[1]->s_str() == "East"){
-				player[0]->Open(this, east);
-			}
-			if (input[1]->s_str() == "north" || input[1]->s_str() == "n" || input[1]->s_str() == "North"){
-				player[0]->Open(this, north);
-			}
-			if (input[1]->s_str() == "west" || input[1]->s_str() == "w" || input[1]->s_str() == "West"){
-				player[0]->Open(this, west);
-			}
-			if (input[1]->s_str() == "south" || input[1]->s_str() == "s" || input[1]->s_str() == "South"){
-				player[0]->Open(this, south);
-			}
-		}
-		else if (input[0]->s_str() == "Close" || input[0]->s_str() == "close"){
-			if (input[1]->s_str() == "east" || input[1]->s_str() == "e" || input[1]->s_str() == "East"){
-				player[0]->Close(this, east);
-			}
-			if (input[1]->s_str() == "north" || input[1]->s_str() == "n" || input[1]->s_str() == "North"){
-				player[0]->Close(this, north);
-			}
-			if (input[1]->s_str() == "west" || input[1]->s_str() == "w" || input[1]->s_str() == "West"){
-				player[0]->Close(this, west);
-			}
-			if (input[1]->s_str() == "south" || input[1]->s_str() == "s" || input[1]->s_str() == "South"){
-				player[0]->Close(this, south);
-			}
-		}
-
-		else if (input[0]->s_str() == "Pick" || input[0]->s_str() == "pick"){
-			player[0]->Pick(input[1]->s_str());
-		}
-		else if (input[0]->s_str() == "Drop" || input[0]->s_str() == "drop"){
-			player[0]->Drop(input[1]->s_str());
-		}
-
-		else if (input[0]->s_str() == "Equip" || input[0]->s_str() == "equip")
-		{
-			player[0]->Equip(input[1]->s_str());
-		}
-		else if (input[0]->s_str() == "Unequip" || input[0]->s_str() == "unequip")
-		{
-			player[0]->Unequip(input[1]->s_str());
-		}
-		else {
-			printf("I did not understand what you said. Sorry! Try again.\n");
-		}
-	}
-
-	if (input.size() == 3)
-	{
-		if((input[0]->s_str() == "Look" || input[0]->s_str() == "look") && (input[1]->s_str() == "at")){
-			player[0]->LookAt(input[2]->s_str());
-		}
-		else {
-			printf("I did not understand what you said. Sorry! Try again.\n");
-		}
-	}
-	if (input.size() == 4){
-		if ((input[0]->s_str() == "Get" || input[0]->s_str() == "get") && (input[2]->s_str() == "from") && (input[3]->s_str()=="chest")){
-			player[0]->Get(this, input[1]->s_str());
-		}
-		else if ((input[0]->s_str() == "Put" || input[0]->s_str() == "put") && (input[2]->s_str() == "in") && (input[3]->s_str() == "chest")){
-			player[0]->Put(this, input[1]->s_str());
-		}
-		else {
-			printf("I did not understand what you said. Sorry! Try again.\n");
-		}
-	}
-
-	player[0]->antigo = true;
-	npcs[0]->Update(this);
-	npcs[0]->antigo = true;
 	return true;
 }

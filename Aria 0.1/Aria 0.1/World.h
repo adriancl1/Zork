@@ -2,6 +2,7 @@
 #define WORLD_HEADER
 
 #include "DynamicArray.h"
+#include <Windows.h>
 
 class Room;
 class Exit;
@@ -27,5 +28,6 @@ public:
 	~World();
 	void CreateWorld();
 	bool Command();
+	unsigned int initialtime = GetTickCount();
 };
 #endif
