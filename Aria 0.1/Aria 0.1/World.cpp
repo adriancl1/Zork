@@ -144,7 +144,9 @@ void World::CreateWorld(){
 	//PLAYER ----
 	player.push_back(new Player("Kevin", "I am Groot", rooms[0]));
 
-	npcs.push_back(new NPC("Raccoon", "A wild raccoon fascinated by your things", ENEMY, rooms[0]));
+	npcs.push_back(new NPC("Raccoon", "A wild raccoon fascinated by your things.", ENEMY, rooms[0], WANDER));
+	npcs.push_back(new NPC("Aria", "Your sister.", FRIENDLY, rooms[4], TALKABLE));
+	npcs.push_back(new NPC("Stranger", "A stranger", FRIENDLY, rooms[8], TALKABLE));
 }
 
 bool World::Command(){
@@ -171,7 +173,6 @@ bool World::Command(){
 					printf("Your command is: %s\n", choice);
 				}
 				if (choice[charcommandnum - 1] == '\r'){//quant apretes enter, imprimeix el command i l'esborra
-					printf("Your command is: %s\n", choice);
 					choice[charcommandnum-1] = '\0';
 					charcommandnum = 0;
 					beforetoken = choice;
