@@ -8,14 +8,16 @@ enum Status{
 	ATTACK, 
 	TALKABLE,
 	CARRYING,
-	NONE
+	ENCOUNTER1, 
+	ENCOUNTER2,
+	TRUTH,
 };
 class NPC : public Creature{
 public:
 	NPC(const char* name, const char* description, type mytype, Room* room, Status status);
 	~NPC();
 	void Update(const World* world);
-	void Move(const World* world, const dir go);
+	bool Move(const World* world, const dir go);
 public:
 	bool antigo = true;
 	Status status;

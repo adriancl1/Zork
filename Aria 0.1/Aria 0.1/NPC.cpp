@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "DynamicArray.h"
 #include <time.h>
+
 #include <stdlib.h>
 
 NPC::NPC(const char* name, const char* description, type mytype, Room* room, Status status) : Creature(name, description, mytype, room), status(status) {
@@ -57,18 +58,28 @@ void NPC::Update(const World* world){
 		case ATTACK:
 			printf("You were hit by the damn raccoon!");
 			if (encounters == 0){
-				Move(world, dir(rand() % 4));
-				printf("And the raccoon fleed!\n");//the raccoon always flees before you can attack back on the first encounter.
+				if (location != world->rooms[6]){
+					location = world->rooms[6];
+				}
+				else{
+					Move(world, dir(rand() % 4));
+				}
+				printf("And the raccoon fled, seems he went to the garden...!\n");//the raccoon always flees to the garden before you can attack back on the first encounter
 				status = WANDER;
 				encounters++;
 				return;
 			}
 			if (encounters == 1){
-
+				Move(world, dir(rand() % 4));
+				printf("The raccoon fled again!\n");
 			}
 		}
 	}
 	if (name == "Aria"){
+		/*switch (status){
+		case ENCOUNTER1:
+		
+		}*/
 		return;
 	}
 	if (name == "Stranger"){
@@ -77,29 +88,25 @@ void NPC::Update(const World* world){
 	return;
 }
 
-void NPC::Move(const World* world, const dir go)
+bool NPC::Move(const World* world, const dir go)
 {
 
 	if (antigo == true){
 		for (int i = 0; i < NUM_EXITS; i++){
 			if (world->exits[i]->source == this->location){
 				if (world->exits[i]->direction == go){
-					if (world->exits[i]->open == true){
+					//if (world->exits[i]->open == true){
 						this->location = world->exits[i]->destination;
 						printf("Raccoon in%s.\n", world->exits[i]->destination->get_name());
 						antigo = false;
-						break;
-					}
-					else{
-						printf("The door is closed.\n");
-						antigo = false;
-						break;
-					}
+						return true;
+					//}
 				}
 			}
 		}
 	}
 	if (antigo == true){
 		printf("There's nothing there.\n");
+		return false;
 	}//If the previous for hasn't changed antigo (it doesn't find a exit with that direction in the source room), it will print the message. Otherwise antigo goes false and it won't procceed. Antigo is set to true in the world::Command everytime it loops.
 }

@@ -30,6 +30,7 @@ public:
 	void Put(World* world, String item);
 	void Equip(String item);
 	void Unequip(String item);
+	void Talk(World* world, String talkto);
 	void Help()const;
 	Player(const char* name, const char* description, Room* room);
 	~Player();

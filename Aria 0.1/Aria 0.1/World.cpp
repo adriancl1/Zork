@@ -144,7 +144,7 @@ void World::CreateWorld(){
 	//PLAYER ----
 	player.push_back(new Player("Kevin", "I am Groot", rooms[0]));
 
-	npcs.push_back(new NPC("Raccoon", "A wild raccoon fascinated by your things.", ENEMY, rooms[0], WANDER));
+	npcs.push_back(new NPC("Raccoon", "A wild raccoon fascinated by your things.", ENEMY, rooms[6], WANDER));
 	npcs.push_back(new NPC("Aria", "Your sister.", FRIENDLY, rooms[4], TALKABLE));
 	npcs.push_back(new NPC("Stranger", "A stranger", FRIENDLY, rooms[8], TALKABLE));
 }
