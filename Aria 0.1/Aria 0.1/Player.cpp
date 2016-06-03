@@ -293,8 +293,33 @@ void Player::Unequip(String item)
 }
 
 void Player::Talk(World* world,String talkto){
-	if (location == world->npcs[1]->location){
-		printf("Hello, darling. I missed you.\n");
+	if (location == world->npcs[1]->location && talkto == "Aria" && world->npcs[1]->status==ENCOUNTER1){
+		unsigned int choice;
+		printf("Hello, darling. I missed you.\n 1. I missed you too!\n 2. Aria? What are you doing here?\n");
+		scanf_s("%i", &choice);
+		if (choice == 1){
+			printf("Don't you worry, we won't be apart anymore now. Unless that man separates us...\n");
+		}
+		else if (choice == 2){
+			printf("That doesn't matter now! Someone's outside, I think he wants to hurt us...\n");
+		}
+		else{
+			printf("Oh dummy did the cat eat your tongue? Hurry, you need to take care of someone outside.\n");
+		}
+		printf("1. What man?\n2.Did the raccoon attack you too!?");
+		scanf_s("%i", &choice);
+		if (choice == 1){
+			printf("I don't know who he is! But you need to kill him NOW. He tried to hurt me. I'm gonna go to the bathroom and hide there.\n");
+		}
+		else if (choice == 2){
+			printf("Wait what raccoon? Whatever... No, there's a man outside. You gotta kill him, he tried to get into the house. I'll go hide in the bathroom!\n");
+		}
+		else{
+			printf("I don't understand you, you're being weird... Anyway, go kill that man, he's dangerous! I'll hide in the bathroom for now.\n");
+		}
+		printf("She went to the bathroom and locked herself there.\n");
+		world->npcs[1]->location = world->rooms[3];
+		world->npcs[1]->status = ENCOUNTER2;
 	}
 }
 

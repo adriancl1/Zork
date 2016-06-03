@@ -145,7 +145,7 @@ void World::CreateWorld(){
 	player.push_back(new Player("Kevin", "I am Groot", rooms[0]));
 
 	npcs.push_back(new NPC("Raccoon", "A wild raccoon fascinated by your things.", ENEMY, rooms[6], WANDER));
-	npcs.push_back(new NPC("Aria", "Your sister.", FRIENDLY, rooms[4], TALKABLE));
+	npcs.push_back(new NPC("Aria", "Your sister.", FRIENDLY, rooms[4], ENCOUNTER1));
 	npcs.push_back(new NPC("Stranger", "A stranger", FRIENDLY, rooms[8], TALKABLE));
 }
 
@@ -357,6 +357,9 @@ bool World::Command(){
 			{
 				if ((input[0]->s_str() == "Look" || input[0]->s_str() == "look") && (input[1]->s_str() == "at")){
 					player[0]->LookAt(input[2]->s_str());
+				}
+				else if ((input[0]->s_str() == "Talk" || input[0]->s_str() == "talk") && (input[1]->s_str() == "to")){
+					player[0]->Talk(this, input[2]->s_str());
 				}
 				else {
 					printf("I did not understand what you said. Sorry! Try again.\n");
